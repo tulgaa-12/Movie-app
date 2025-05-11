@@ -1,6 +1,6 @@
-import { Card, CardContent, CardAction } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { AlleCard } from "./AlleCard";
 export const AllCard = () => {
   return (
     <div className="w-[full] h-[full] justify-center">
@@ -10,7 +10,14 @@ export const AllCard = () => {
           See More <ArrowRight />
         </Button>
       </div>
-      <div></div>
+      <div className="flex flex-row">
+        <AlleCard />
+        <AlleCard />
+        <AlleCard />
+        <AlleCard />
+        <AlleCard />
+        <AlleCard />
+      </div>
     </div>
   );
 };

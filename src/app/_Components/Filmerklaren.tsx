@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Play } from "lucide-react";
 
 export const Filmerklaren = () => {
   return (
@@ -19,6 +21,10 @@ export const Filmerklaren = () => {
           friendship reaches a crossroads.
         </p>
       </div>
+      <Button>
+        {" "}
+        <Play /> Watch Trailer
+      </Button>
     </div>
   );
 };
