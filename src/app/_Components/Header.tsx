@@ -29,7 +29,7 @@ export const Header = () => {
   const Toggle = () => setTheme(isDark ? "light" : "dark");
 
   return (
-    <div className="h-[59px] w-full flex justify-center items-center">
+    <div className="h-[59px] w-full flex justify-center items-center  ">
       <div className="h-[36px] w-full flex flex-row justify-around items-center ">
         <div className="flex flex-row gap-[7px]">
           <Film style={{ color: "Indigo" }} />

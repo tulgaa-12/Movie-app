@@ -3,11 +3,22 @@ import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
 
 export const Filmerklaren = () => {
+  const Parent = [
+    {
+      img: "./movie01.png",
+      Playing: "Wicked",
+      unelgee: "6.9/10",
+      tailber:
+        " Elphaba, a misunderstood young woman because of her green skin, and Glinda, a popular girl, become friends at Shiz University in the Land  of Oz. After an encounter with the Wonderful Wizard of Oz, their friendship reaches a crossroads.",
+    },
+    {},
+  ];
+
   return (
     <div className="w-[404px] h-[264px] flex gap-[16px] flex-col">
       <div className="h-[112px] flex flex-col">
         <h2>Now Playing:</h2>
-        <p className="text-[36px] font-inter ">Wicked</p>
+        <p className="text-[36px] font-inter ">{}</p>
         <div className="w-[83px] h-[48px]">
           <img src="Star.png" />
           6.9/10

@@ -18,18 +18,18 @@ export const MovieFrame = () => {
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
   return (
-    <div className="w-full h-[600px] flex justify-between items-center  ">
+    <div className="w-full h-[600px] flex justify-between items-center ">
       <Carousel
         plugins={[plugin.current]}
         className="w-full  h-[600px] flex flex-col "
         onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}>
+        onMouseLeave={plugin.current.reset}
+      >
         <CarouselContent>
-          {Array.from({ length: 5 }).map((_, index) => (
+          {Array.from({ length: 3 }).map((_, index) => (
             <CarouselItem key={index}>
               <div className="p-1">
                 <Card>
-                  <img src="movie01.png" className="rounded-lg" />
                   <Filmerklaren />
                   <CardContent className="flex aspect-square items-center justify-center p-6">
                     <span className="text-4xl font-semibold">{index + 1}</span>
@@ -39,7 +39,7 @@ export const MovieFrame = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious />
+        <CarouselPrevious className="absolute ml-[80px]" />
         <CarouselNext className="absolute mr-[80px]" />
       </Carousel>
     </div>
