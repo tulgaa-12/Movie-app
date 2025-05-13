@@ -19,7 +19,9 @@ const Home = () => {
       <FooterContent />
       <div className="text-[red] sm:text-[blue] lg:text-[yellow] xl:text-[white] 2xl:text-[green]">
         ich gern Fußball spielen
-        <button className="w-[10]">click</button>
+        <button className="w-[10]" onClick={Toogle}>
+          click
+        </button>
       </div>
     </div>
   );

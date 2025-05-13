@@ -16,7 +16,7 @@ export const FooterContent = () => {
           </p>
         </div>
         <div className="w-[335px] flex  justify-center  flex-row">
-          <div className="w-[174px] text-[#FAFAFA] flex flex-col gap-5">
+          <div className="w-[174px] text-[#FAFAFA] flex flex-col gap-3">
             <p>Contact Information</p>
 
             <p className="flex flex-row justify-center items-center gap-1 text-sm  ">
@@ -30,7 +30,7 @@ export const FooterContent = () => {
           </div>
           <div className="flex flex-col text-[white] gap-3 text-sm ">
             <p>Follow us </p>
-            <div className="flex flex-col gap-5 ">
+            <div className="flex flex-col gap-2 ">
               {Parent.map((el, index) => (
                 <p key={index}>{el}</p>
               ))}

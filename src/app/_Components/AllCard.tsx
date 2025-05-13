@@ -4,15 +4,15 @@ import { AlleCard } from "./AlleCard";
 
 export const AllCard = () => {
   return (
-    <div className="flex justify-center  flex-col gap-5 w-full">
-      <div className="w-full h-[36px] flex justify-between  pr-[250px] pl-[100px] ">
+    <div className="flex justify-center items-center flex-col gap-5 w-full">
+      <div className="w-full h-[36px] flex justify-center gap-15 ">
         <h3 className="font-inter text-[24px]">Upcoming </h3>
         <Button variant="ghost">
           See More <ArrowRight />
         </Button>
       </div>
-      <div className="flex flex-col justify-center pr-[100px] pl-[100px] ">
-        <div className="grid  grid-flow-col grid-rows-5 gap-5 sm:grid grid-flow-col grid-rows-2 ">
+      <div className="flex flex-col justify-center items-center gap-7 w-[335px] ">
+        <div className="grid  grid-flow-col grid-rows-5 gap-5 sm:grid grid-flow-col grid-rows-2  ">
           <AlleCard />
           <AlleCard />
           <AlleCard />
