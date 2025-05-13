@@ -19,7 +19,8 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { useTheme } from "next-themes";
-import { BADFAMILY } from "dns";
+import { useEffect, useState } from "react";
+import { getHeroApi } from "../hooks/GetHeroApi";
 
 export const Header = () => {
   const { setTheme, theme } = useTheme();
@@ -28,9 +29,20 @@ export const Header = () => {
 
   const Toggle = () => setTheme(isDark ? "light" : "dark");
 
+  const [Upcoming, setUpcoming] = useState([]);
+
+  useEffect(() => {
+    const Playing = async () => {
+      const response = await getHeroApi();
+      const firstfive = response?.results.splice(0, 5);
+      setUpcoming(firstfive);
+    };
+    Playing();
+  }, []);
+
   return (
-    <div className="h-[59px] w-full flex justify-center items-center  ">
-      <div className="h-[36px] w-full flex flex-row justify-around items-center ">
+    <div className="h-[59px] w-full flex justify-center items-center   ">
+      <div className="h-[36px] w-full flex flex-row justify-around items-center sm:">
         <div className="flex flex-row gap-[7px]">
           <Film style={{ color: "Indigo" }} />
           <p style={{ color: "Indigo" }}>Movie Z</p>
@@ -44,8 +56,8 @@ export const Header = () => {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    height: "333px",
-                    width: "577px",
+                    height: "513px",
+                    width: "335px",
                   }}
                 >
                   <div className="w-[213px] h-[60px] flex flex-col gap-[10px]">
@@ -56,7 +68,7 @@ export const Header = () => {
                     <div className=" w-[537px]  border-[1px]"></div>
                   </div>
                   <div className="flex flex-col gap-4">
-                    <div className="flex flex-row justify-around">
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
@@ -69,6 +81,8 @@ export const Header = () => {
                       >
                         Adventure <ChevronRight />
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
@@ -81,20 +95,22 @@ export const Header = () => {
                       >
                         Biography <ChevronRight />
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
                       >
                         Comedy <ChevronRight />
                       </Badge>
-                    </div>
-                    <div className="flex flex-row justify-around">
                       <Badge
                         variant="outline"
                         className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
                       >
                         Crime <ChevronRight />{" "}
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
@@ -107,6 +123,8 @@ export const Header = () => {
                       >
                         Drama <ChevronRight />
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
@@ -119,14 +137,15 @@ export const Header = () => {
                       >
                         Fantasy <ChevronRight />
                       </Badge>
-                    </div>
-                    <div className="flex flex-row justify-around">
+
                       <Badge
                         variant="outline"
                         className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
                       >
                         Film-Noir <ChevronRight />{" "}
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
@@ -139,6 +158,8 @@ export const Header = () => {
                       >
                         History <ChevronRight />
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
@@ -151,14 +172,14 @@ export const Header = () => {
                       >
                         Music <ChevronRight />
                       </Badge>
-                    </div>
-                    <div className="flex flex-row justify-around">
                       <Badge
                         variant="outline"
                         className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
                       >
                         Musical <ChevronRight />
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
@@ -177,14 +198,15 @@ export const Header = () => {
                       >
                         Reality-TV <ChevronRight />
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
                       >
                         Romance <ChevronRight />
                       </Badge>
-                    </div>
-                    <div className="flex flex-row justify-around">
+
                       <Badge
                         variant="outline"
                         className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
@@ -197,6 +219,8 @@ export const Header = () => {
                       >
                         Short <ChevronRight />
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
@@ -215,14 +239,15 @@ export const Header = () => {
                       >
                         Triller <ChevronRight />
                       </Badge>
+                    </div>
+                    <div className="flex flex-row gap-7">
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
                       >
                         War <ChevronRight />
                       </Badge>
-                    </div>
-                    <div>
+
                       <Badge
                         variant="outline"
                         className="flex flex-row  items-center rounded-full h-[20px] w-[87px] hover:bg-[#E4E4E7] border"
@@ -235,7 +260,7 @@ export const Header = () => {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          <Input placeholder="...Search" style={{ width: "379px" }} />
+          <Input placeholder="...Search" className="w-[251x]" />
         </div>
 
         <Button variant="outline" size="icon" onClick={Toggle}>

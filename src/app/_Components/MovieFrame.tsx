@@ -18,7 +18,7 @@ export const MovieFrame = () => {
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
   return (
-    <div className="w-full h-[600px] flex justify-between items-center ">
+    <div className="w-full h-[510px]  ">
       <Carousel
         plugins={[plugin.current]}
         className="w-full  h-[600px] flex flex-col "
@@ -30,7 +30,7 @@ export const MovieFrame = () => {
             <CarouselItem key={index}>
               <div className="p-1">
                 <Card>
-                  <Filmerklaren />
+                  {/* <Filmerklaren /> */}
                   <CardContent className="flex aspect-square items-center justify-center p-6">
                     <span className="text-4xl font-semibold">{index + 1}</span>
                   </CardContent>

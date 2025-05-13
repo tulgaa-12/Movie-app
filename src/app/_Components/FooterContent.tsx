@@ -1,21 +1,11 @@
 import { Film, Mail, Phone } from "lucide-react";
 
 export const FooterContent = () => {
-  //   const Parent = [
-  //     {
-  //       Email: "support@movieZ.com",
-  //     },
-  //     {
-  //       Phone: "+976 (11) 123-4567",
-  //     },
-  //   ];
-  //   Parent.map((el,index) => {
-
-  //   })
+  const Parent = ["FaceBook", "Instagram", "Twitter", "Youtube"];
 
   return (
-    <div className="w-full h-[280px] flex justify-center items-center bg-[#4338CA]">
-      <div className="w-full  h-[200px] flex flex-row justify-center gap-45 ">
+    <div className="w-full h-[308px] flex justify-center items-center bg-[#4338CA]">
+      <div className="w-full  h-[228px] flex gap-[10px] flex-col justify-center  items-center  ">
         <div className="flex flex-col gap-3  w-[247px] text-[#FAFAFA] ">
           <h1 className="flex flex-row ">
             {" "}
@@ -25,7 +15,7 @@ export const FooterContent = () => {
             © 2024 Movie Z. All Rights Reserved.
           </p>
         </div>
-        <div className="w-[913px] flex  justify-center gap-70 flex-row">
+        <div className="w-[335px] flex  justify-center  flex-row">
           <div className="w-[174px] text-[#FAFAFA] flex flex-col gap-5">
             <p>Contact Information</p>
 
@@ -40,11 +30,10 @@ export const FooterContent = () => {
           </div>
           <div className="flex flex-col text-[white] gap-3 text-sm ">
             <p>Follow us </p>
-            <div className="flex flex-row gap-5 ">
-              <p>FaceBook </p>
-              <p>Instagram</p>
-              <p> Twitter</p>
-              <p>Youtube</p>
+            <div className="flex flex-col gap-5 ">
+              {Parent.map((el, index) => (
+                <p key={index}>{el}</p>
+              ))}
             </div>
           </div>
         </div>
