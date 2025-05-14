@@ -8,7 +8,7 @@ import { FooterContent } from "./_Components/FooterContent";
 
 const Home = () => {
   return (
-    <div className="flex flex-col justify-center items-center sm:flex flex-col justify-center items-center ">
+    <div className="flex flex-col justify-center items-center sm:flex flex-col justify-center items-center gap-[10px] ">
       <Header />
       <MovieFrame />
       <AllCard />

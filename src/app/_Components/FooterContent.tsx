@@ -15,7 +15,7 @@ export const FooterContent = () => {
             © 2024 Movie Z. All Rights Reserved.
           </p>
         </div>
-        <div className="w-[335px] flex  justify-center gap-[20px]  flex-row">
+        <div className="w-[335px] flex  justify-center gap-[20px]  flex-row sm:gap-20 lg:gap-110">
           <div className="w-[174px] text-[#FAFAFA] flex flex-col gap-3">
             <p>Contact Information</p>
 
@@ -30,7 +30,7 @@ export const FooterContent = () => {
           </div>
           <div className="flex flex-col text-[white] gap-3 text-sm ">
             <p>Follow us </p>
-            <div className="flex flex-col gap-2 ">
+            <div className="flex flex-col gap-2  lg:flex-row  ">
               {Parent.map((el, index) => (
                 <p key={index}>{el}</p>
               ))}

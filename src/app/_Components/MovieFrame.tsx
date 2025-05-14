@@ -22,6 +22,7 @@ type UpcomingMovies = {
   title: string;
   overview: string;
   vote_average: number;
+  movieId: string;
 };
 
 export const MovieFrame = () => {
@@ -45,12 +46,12 @@ export const MovieFrame = () => {
       <Carousel
         plugins={[plugin.current]}
         onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
-      >
+        onMouseLeave={plugin.current.reset}>
         <CarouselContent>
+          h
           {Upcoming.map((el, index) => (
             <CarouselItem key={index}>
-              <div className="relative w-full h-[600px] sm:h-[350px]">
+              <div className="relative w-full h-[600px] sm:h-[350px] lg:h[510px] 2xl:h-[600]">
                 <Image
                   src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
                   fill
