@@ -15,7 +15,7 @@ export const FooterContent = () => {
             © 2024 Movie Z. All Rights Reserved.
           </p>
         </div>
-        <div className="w-[335px] flex  justify-center  flex-row">
+        <div className="w-[335px] flex  justify-center gap-[20px]  flex-row">
           <div className="w-[174px] text-[#FAFAFA] flex flex-col gap-3">
             <p>Contact Information</p>
 

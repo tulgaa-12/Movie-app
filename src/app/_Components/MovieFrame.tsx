@@ -2,10 +2,8 @@
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
 
-import { Filmerklaren } from "./Filmerklaren";
 import Image from "next/image";
 
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -28,6 +26,7 @@ type UpcomingMovies = {
 
 export const MovieFrame = () => {
   const [Upcoming, setUpcoming] = useState<UpcomingMovies[]>([]);
+  const [Movie, setMovie] = useState([]);
 
   useEffect(() => {
     const Playing = async () => {
@@ -37,38 +36,34 @@ export const MovieFrame = () => {
     };
     Playing();
   }, []);
+  console.log(Upcoming, "upcoming");
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
   return (
-    <div className="w-full h-[510px]  ">
+    <div className="w-full h-full">
       <Carousel
         plugins={[plugin.current]}
-        className="w-full  h-[600px] flex flex-col "
         onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}>
+        onMouseLeave={plugin.current.reset}
+      >
         <CarouselContent>
           {Upcoming.map((el, index) => (
             <CarouselItem key={index}>
-              <div className="p-1">
-                <Card>
-                  {/* <Filmerklaren /> */}
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <Image
-                      src={`https://image.tmdb.org/t/p${el.backdrop_path}`}
-                      fill
-                      alt="hero"
-                      objectFit="cover"
-                      priority
-                    />
-                  </CardContent>
-                </Card>
+              <div className="relative w-full h-[600px] sm:h-[350px]">
+                <Image
+                  src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
+                  fill
+                  alt={""}
+                  objectFit="cover"
+                  priority
+                />
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute ml-[80px]" />
-        <CarouselNext className="absolute mr-[80px]" />
+        <CarouselPrevious className="absolute ml-[80px] hidden md:flex" />
+        <CarouselNext className="absolute mr-[80px] hidden md:flex" />
       </Carousel>
     </div>
   );
