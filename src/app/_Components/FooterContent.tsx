@@ -6,7 +6,7 @@ export const FooterContent = () => {
   return (
     <div className="w-full h-[308px] flex justify-center items-center bg-[#4338CA]">
       <div className="w-full  h-[228px] flex gap-[10px] flex-col justify-center  items-center  ">
-        <div className="flex flex-col gap-3  w-[247px] text-[#FAFAFA] ">
+        <div className="flex flex-col gap-3  w-[247px] text-[#FAFAFA]  lg: ">
           <h1 className="flex flex-row ">
             {" "}
             <Film /> Movie Z
