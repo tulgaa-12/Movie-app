@@ -246,7 +246,10 @@ export const Header = () => {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-          <Input placeholder="...Search" className="w-[51px] sm:w-[251px] " />
+          <Input
+            placeholder="...Search"
+            className="w-[51px] sm:w-[251px] lg:w-[379px] "
+          />
         </div>
 
         <Button variant="outline" size="icon" onClick={Toggle}>

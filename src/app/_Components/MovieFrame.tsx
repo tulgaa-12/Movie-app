@@ -43,12 +43,14 @@ export const MovieFrame = () => {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
+  console.log(Upcoming);
   return (
     <div className="w-full h-full">
       <Carousel
         plugins={[plugin.current]}
         onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}>
+        onMouseLeave={plugin.current.reset}
+      >
         <CarouselContent>
           {Upcoming.map((el, index) => (
             <CarouselItem key={index} className="">
