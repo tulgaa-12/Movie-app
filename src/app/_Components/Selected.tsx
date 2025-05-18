@@ -13,9 +13,9 @@ type Movies = {
   overview: string;
   vote_average: number;
   release_date: number;
-  published_at: number;
   vote_count: number;
   poster_path: string;
+  genre_ids: number[];
 };
 
 const API_TOKEN =

@@ -1,6 +1,7 @@
 import { Header } from "@/app/_Components/Header";
 import axios from "axios";
 import { Selected } from "@/app/_Components/Selected";
+import { MovieDescription } from "@/app/_Components/MovieDescription";
 
 interface Pageprops {
   params: {
@@ -14,8 +15,7 @@ const API_TOKEN =
 const Home = async ({ params }: Pageprops) => {
   const { id } = params;
 
-  // 🟢 Зөв замыг ашиглаж хүсэлт явуулна
-  const result = await axios.get(
+  const { data } = await axios.get(
     `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
     {
       headers: {
@@ -25,12 +25,27 @@ const Home = async ({ params }: Pageprops) => {
     }
   );
 
-  console.log(result.data);
+  const movieDetails = await axios.get(
+    `https://api.themoviedb.org/3/movie/${id}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+    }
+  );
+
+  const genreIds = movieDetails.data.genres
+    .map((genre: any) => genre.id)
+    .join(",");
+
+  console.log("Genre IDs:", genreIds);
 
   return (
-    <div id={id} className="flex flex-col gap-10">
+    <div id={id} className="flex flex-col gap-10  justify-center">
       <Header />
       <Selected id={id} />
+      <MovieDescription page="1" genreIds={genreIds} id={id} />
     </div>
   );
 };
