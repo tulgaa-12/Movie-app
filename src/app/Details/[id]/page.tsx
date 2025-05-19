@@ -2,7 +2,8 @@ import { Header } from "@/app/_Components/Header";
 import axios from "axios";
 import { Selected } from "@/app/_Components/Selected";
 import { MovieDescription } from "@/app/_Components/MovieDescription";
-
+import { Crews } from "@/app/_Components/Crew";
+import { Moremovies } from "@/app/_Components/MoreMovies";
 interface Pageprops {
   params: {
     id: string;
@@ -42,10 +43,12 @@ const Home = async ({ params }: Pageprops) => {
   console.log("Genre IDs:", genreIds);
 
   return (
-    <div id={id} className="flex flex-col gap-10  justify-center">
+    <div id={id} className="flex flex-col gap-10  justify-center items-center">
       <Header />
       <Selected id={id} />
-      <MovieDescription page="1" genreIds={genreIds} id={id} />
+      <MovieDescription page="1" genreIds={genreIds} />
+      <Crews id={id} />
+      <Moremovies id={id} />
     </div>
   );
 };
