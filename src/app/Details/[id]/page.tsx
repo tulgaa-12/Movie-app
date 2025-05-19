@@ -4,6 +4,7 @@ import { Selected } from "@/app/_Components/Selected";
 import { MovieDescription } from "@/app/_Components/MovieDescription";
 import { Crews } from "@/app/_Components/Crew";
 import { Moremovies } from "@/app/_Components/MoreMovies";
+import { FooterContent } from "@/app/_Components/FooterContent";
 interface Pageprops {
   params: {
     id: string;
@@ -16,15 +17,12 @@ const API_TOKEN =
 const Home = async ({ params }: Pageprops) => {
   const { id } = params;
 
-  const { data } = await axios.get(
-    `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${API_TOKEN}`,
-      },
-    }
-  );
+  const { data } = await axios.get(`https://api.themoviedb.org/3`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${API_TOKEN}`,
+    },
+  });
 
   const movieDetails = await axios.get(
     `https://api.themoviedb.org/3/movie/${id}`,
@@ -49,6 +47,7 @@ const Home = async ({ params }: Pageprops) => {
       <MovieDescription page="1" genreIds={genreIds} />
       <Crews id={id} />
       <Moremovies id={id} />
+      <FooterContent />
     </div>
   );
 };

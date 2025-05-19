@@ -47,7 +47,9 @@ export const Selected = ({ id }: { id: string }) => {
   return (
     <div className="flex flex-col items-center justify-center">
       {videos.map((el) => (
-        <div key={el.id} className="lg:w-[1080px]  ">
+        <div
+          key={el.id}
+          className="md:w-[768px] md:flex justify-center md:flex-col lg:w-[1024px] xl:w-[1080px]  ">
           <div className="flex flex-row justify-between">
             <div className="flex flex-col pl-[20px] pb-[10px]">
               <h2 className="text-xl mt-2 font-semibold text-[24px]">

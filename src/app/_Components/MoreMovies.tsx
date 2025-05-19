@@ -54,32 +54,38 @@ export const Moremovies = ({ id }: { id: string }) => {
   }, [id]);
 
   return (
-    <div>
-      <div className="w-full h-[36px] flex justify-center gap-30 sm:gap-80 lg:gap-260 2xl:gap-260">
-        <h3 className="font-semibold">More like this</h3>
+    <div className="flex justify-center flex-col gap-[50px] lg:w-[1080px] mb-">
+      <div
+        className="w-full h-[36px] flex justify-center gap-30 sm:gap-80
+      md:gap-120 lg:gap-200  2xl:gap-240">
+        <h3 className="font-semibold ">More like this</h3>
         <Button variant="ghost">
           See More <ArrowRight />
         </Button>
       </div>
       <div>
-        <div className="flex flex-row gap-10">
+        <div className="flex flex-row gap-5 w-[335px] overflow-x-auto overflow-visible md:overflow-hidden md:flex-wrap md:justify-center md:flex-row md:w-full lg:justify-center lg:w-[1024px] xl:w-[1080px]">
           {Like.map((el, index) => (
-            <div key={index} className="w-[309px] ">
+            <div key={index} className="w-[157px]  lg:w-[190px] ">
               <img
                 src={`https://image.tmdb.org/t/p/original${el.poster_path}`}
                 alt={el.title}
-                className="w-[309px]"
+                className="w-[157px] rounded-t-lg lg:w-[190px]"
               />
-              <div className="h-[76px] bg-[#F4F4F5] flex flex-col justify-center gap-[8px] rounded-b-lg lg:h-[95px] lg:text-lg ">
+              <div className="h-[76px] bg-[#F4F4F5] flex flex-col justify-center gap-[8px] rounded-b-md lg:h-[95px] lg:text-lg ">
                 <div className="flex flex-row gap-1 pl-[10px] pt-[6px]">
                   <Star className="text-[#FDE047]" />
-                  <p className="text-[16px] font-medium text-[black]"></p>
+                  <p className="text-[16px] font-medium text-[black]">
+                    {el.vote_average}
+                  </p>
                   <p className="text-[#71717A] text-[14px] font-semibold">
                     /10
                   </p>
                 </div>
                 <div className="w-[141px] h-[40px] pl-[10px] ">
-                  <p className="text-sm font-semibold w-[141px] h-[40px]  text-[black] "></p>
+                  <p className="text-sm font-normal w-[141px] h-[40px]  text-[black] ">
+                    {el.title}
+                  </p>
                 </div>
               </div>
             </div>

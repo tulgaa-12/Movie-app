@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TopApi } from "@/app/hooks/TopApi";
 import { Star } from "lucide-react";
-
+import { useRouter } from "next/navigation";
 type TopMovies = {
   adult: boolean;
   backdrop_path: string;
@@ -27,13 +27,22 @@ export const TopRated = () => {
     Playin();
   }, []);
 
+  const router = useRouter();
+
+  const routerHandler = (path: string) => {
+    router.push(path);
+  };
+
   console.log(topated, "top");
   return (
     <div className="flex  flex-col gap-5 w-full">
       <div className="flex flex-col gap-7">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 gap-8">
           {topated.map((el, index) => (
-            <div key={index} className="hover:opacity-[0.3]">
+            <div
+              key={index}
+              onClick={() => routerHandler(`/Details/${el.id}`)}
+              className="hover:opacity-[0.3]">
               <div className="w-full h-[233px] relative rounded-lg xl:w-[229px] xl:h-[340px] 2xl:w-[229px] 2xl:h-[340px]  ">
                 <Image
                   src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}

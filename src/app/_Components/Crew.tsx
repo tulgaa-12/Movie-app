@@ -40,7 +40,7 @@ export const Crews = ({ id }: { id: string }) => {
             }
           ),
         ]);
-
+        console.log(creditsRes.data.crew);
         setCastList([...creditsRes.data.cast.splice(0, 3)]);
         setCrewList([...creditsRes.data.crew.slice(0, 1)]);
       } catch (error) {
@@ -55,8 +55,7 @@ export const Crews = ({ id }: { id: string }) => {
       {crewList.map((el, index) => (
         <div
           key={index}
-          className="pl-[15px] flex gap-20 flex-row md:w-[1080px]"
-        >
+          className="pl-[15px] flex gap-20 flex-row md:w-[1080px]">
           <div className="flex flex-col gap-20">
             {jobs.map((el) => {
               return <p className="font-semibold text-[16px]">{el}</p>;
@@ -68,11 +67,11 @@ export const Crews = ({ id }: { id: string }) => {
               {crewList
                 .filter((el) => el.job === "Writer")
                 .map((el) => el.name)
-                .join(",") || "k"}
+                .join(", ") || "Not Available"}
             </p>
             <p className="flex flex-wrap">
               {castList.map((el) => (
-                <p>{el.name}*</p>
+                <p>{el.name}--</p>
               ))}
             </p>
           </div>
