@@ -19,15 +19,17 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { useTheme } from "next-themes";
+import { useState } from "react";
 
 export const Header = () => {
   const { setTheme, theme } = useTheme();
+  const [input, setInput] = useState(false);
 
   const isDark = theme === "dark";
 
   const Toggle = () => setTheme(isDark ? "light" : "dark");
   return (
-    <div className="h-[59px] w-full flex justify-center items-center   ">
+    <div className="h-[59px] w-full flex justify-center items-center ">
       <div className="h-[36px] w-full flex flex-row justify-around items-center sm:">
         <div className="flex flex-row gap-[7px]">
           <Film style={{ color: "Indigo" }} />
@@ -251,6 +253,9 @@ export const Header = () => {
             className="w-[51px] sm:w-[251px] lg:w-[379px] "
           />
         </div>
+        <Button onClick={() => setInput(!input)}>
+          <Search />
+        </Button>
 
         <Button variant="outline" size="icon" onClick={Toggle}>
           {isDark ? <Sun /> : <Moon />}

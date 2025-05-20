@@ -3,9 +3,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import * as React from "react";
-
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, Hand, Star } from "lucide-react";
 
 type Moremovie = {
   adult: boolean;
@@ -53,24 +53,43 @@ export const Moremovies = ({ id }: { id: string }) => {
     Mores();
   }, [id]);
 
+  const router = useRouter();
+
+  const routerHandler = (path: string) => {
+    router.push(path);
+
+    const Handle = useRouter();
+    const Handler = (path: string) => {
+      Handle.push(path);
+    };
+  };
+
   return (
     <div className="flex justify-center flex-col gap-[50px] lg:w-[1080px] mb-">
       <div
         className="w-full h-[36px] flex justify-center gap-30 sm:gap-80
-      md:gap-120 lg:gap-200  2xl:gap-240">
+      md:gap-120 lg:gap-200  2xl:gap-210"
+      >
         <h3 className="font-semibold ">More like this</h3>
-        <Button variant="ghost">
+        <Button
+          variant="ghost"
+          onClick={() => routerHandler(`/Details/Details2/${id}`)}
+        >
           See More <ArrowRight />
         </Button>
       </div>
       <div>
         <div className="flex flex-row gap-5 w-[335px] overflow-x-auto overflow-visible md:overflow-hidden md:flex-wrap md:justify-center md:flex-row md:w-full lg:justify-center lg:w-[1024px] xl:w-[1080px]">
           {Like.map((el, index) => (
-            <div key={index} className="w-[157px]  lg:w-[190px] ">
+            <div
+              key={index}
+              onClick={() => routerHandler(`/Details/${el.id}`)}
+              className="w-[157px]  lg:w-[190px]  "
+            >
               <img
                 src={`https://image.tmdb.org/t/p/original${el.poster_path}`}
                 alt={el.title}
-                className="w-[157px] rounded-t-lg lg:w-[190px]"
+                className="w-[157px] rounded-t-lg  h-[233px] xl:h-[281px] lg:w-[190px]  "
               />
               <div className="h-[76px] bg-[#F4F4F5] flex flex-col justify-center gap-[8px] rounded-b-md lg:h-[95px] lg:text-lg ">
                 <div className="flex flex-row gap-1 pl-[10px] pt-[6px]">

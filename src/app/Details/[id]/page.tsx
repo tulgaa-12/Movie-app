@@ -5,6 +5,8 @@ import { MovieDescription } from "@/app/_Components/MovieDescription";
 import { Crews } from "@/app/_Components/Crew";
 import { Moremovies } from "@/app/_Components/MoreMovies";
 import { FooterContent } from "@/app/_Components/FooterContent";
+import { MoreLikeMovies } from "@/app/_Components/MoreLikeMovies";
+
 interface Pageprops {
   params: {
     id: string;
@@ -47,6 +49,7 @@ const Home = async ({ params }: Pageprops) => {
       <MovieDescription page="1" genreIds={genreIds} />
       <Crews id={id} />
       <Moremovies id={id} />
+      {/* <MoreLikeMovies id={id} /> */}
       <FooterContent />
     </div>
   );

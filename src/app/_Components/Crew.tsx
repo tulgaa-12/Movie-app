@@ -55,12 +55,18 @@ export const Crews = ({ id }: { id: string }) => {
       {crewList.map((el, index) => (
         <div
           key={index}
-          className="pl-[15px] flex gap-20 flex-row md:w-[1080px]">
+          className="pl-[15px] flex gap-20 flex-row md:w-[1080px]"
+        >
           <div className="flex flex-col gap-20">
             {jobs.map((el) => {
-              return <p className="font-semibold text-[16px]">{el}</p>;
+              return (
+                <div className="flex flex-col gap-5">
+                  <div className="font-semibold text-[16px]">{el}</div>
+                </div>
+              );
             })}
           </div>
+
           <div className="flex flex-col gap-20">
             <p className="font-normal text-base">{el.name}</p>
             <p className="flex flex-wrap">
@@ -75,6 +81,7 @@ export const Crews = ({ id }: { id: string }) => {
               ))}
             </p>
           </div>
+          <div className="w-[335px] border-[1px] hidden xl:border-[1px] xl:w-[1080px] xl:block"></div>
         </div>
       ))}
     </div>

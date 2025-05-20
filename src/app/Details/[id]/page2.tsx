@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Header } from "@/app/_Components/Header";
+import { MoreLikeMovies } from "@/app/_Components/MoreLikeMovies";
+
 interface Pageprops {
   params: {
     movieid: string;
@@ -12,28 +14,17 @@ const API_TOKEN =
 const Home = async ({ params }: Pageprops) => {
   const { movieid } = params;
 
-  const { data } = await axios.get(`https://api.themoviedb.org/3`, {
+  const { data } = await axios.get(`https://api.themoviedb.org/3${movieid}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${API_TOKEN}`,
     },
   });
 
-  const movieDetails = await axios.get(
-    `https://api.themoviedb.org/3/movie/${movieid}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${API_TOKEN}`,
-      },
-    }
-  );
-
   return (
-    <div
-      id={movieid}
-      className="flex flex-col gap-10  justify-center items-center">
+    <div id={movieid} className="flex flex-col gap-10  justify-center ">
       <Header />
+      <MoreLikeMovies id={movieid} />
     </div>
   );
 };

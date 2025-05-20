@@ -85,7 +85,7 @@ export const MovieFrame = () => {
                   alt={``}
                   objectFit="cover"
                   priority
-                  className="bg-fixed"
+                  className="bg-fixed "
                 />
               </div>
               <div className=" w-full pt-[20px] flex flex-col gap-3 lg:hidden">
