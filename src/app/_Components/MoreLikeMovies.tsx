@@ -51,8 +51,7 @@ export const MoreLikeMovies = ({ id }: { id: string }) => {
         {Like.map((el, index) => (
           <div
             key={index}
-            className="flex flex-col w-[157px] lg:w-[190px] xl:w-[229px]  "
-          >
+            className="flex flex-col w-[157px] lg:w-[190px] xl:w-[229px]  ">
             <img
               src={`https://image.tmdb.org/t/p/original${el.poster_path}`}
               alt={el.title}

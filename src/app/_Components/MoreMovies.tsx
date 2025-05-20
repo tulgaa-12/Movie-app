@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Hand, Star } from "lucide-react";
+import { ArrowRight, Star } from "lucide-react";
 
 type Moremovie = {
   adult: boolean;
@@ -19,15 +19,12 @@ type Moremovie = {
   poster_path: string;
 };
 
-type List = {
-  id: string;
-};
-
 const API_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsIm5iZiI6MTc0MjE3NTA4OS4zODksInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
 
 export const Moremovies = ({ id }: { id: string }) => {
   const [Like, setLike] = useState<Moremovie[]>([]);
+
   useEffect(() => {
     const Mores = async () => {
       try {
@@ -42,7 +39,6 @@ export const Moremovies = ({ id }: { id: string }) => {
             }
           ),
         ]);
-        console.log(more, "more");
 
         setLike(more.data.results.splice(0, 5));
       } catch (error) {
@@ -57,24 +53,16 @@ export const Moremovies = ({ id }: { id: string }) => {
 
   const routerHandler = (path: string) => {
     router.push(path);
-
-    const Handle = useRouter();
-    const Handler = (path: string) => {
-      Handle.push(path);
-    };
   };
 
   return (
     <div className="flex justify-center flex-col gap-[50px] lg:w-[1080px] mb-">
       <div
         className="w-full h-[36px] flex justify-center gap-30 sm:gap-80
-      md:gap-120 lg:gap-200  2xl:gap-210"
-      >
+      md:gap-120 lg:gap-200  2xl:gap-210">
         <h3 className="font-semibold ">More like this</h3>
-        <Button
-          variant="ghost"
-          onClick={() => routerHandler(`/Details/Details2/${id}`)}
-        >
+
+        <Button variant="ghost">
           See More <ArrowRight />
         </Button>
       </div>
@@ -84,8 +72,7 @@ export const Moremovies = ({ id }: { id: string }) => {
             <div
               key={index}
               onClick={() => routerHandler(`/Details/${el.id}`)}
-              className="w-[157px]  lg:w-[190px]  "
-            >
+              className="w-[157px]  lg:w-[190px]  ">
               <img
                 src={`https://image.tmdb.org/t/p/original${el.poster_path}`}
                 alt={el.title}
