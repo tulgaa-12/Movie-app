@@ -8,10 +8,27 @@ import { useState } from "react";
 import { Preahvihear } from "next/font/google";
 import { Popular } from "./Popular";
 import { TopRated } from "./TopRated";
-
-type user = {};
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+type LikeMovie = {
+  adult: boolean;
+  backdrop_path: string;
+  id: number;
+  title: string;
+  overview: string;
+  vote_average: number;
+  original_title: string;
+  genre_ids: number[];
+  poster_path: string;
+};
 
 export const AllCard = () => {
+  const [coming, setComing] = useState<LikeMovie[]>([]);
+  const router = useRouter();
+
+  const routerHandler = (path: string) => {
+    router.push(path);
+  };
   return (
     <div className="flex justify-center items-center flex-col gap-5 w-full">
       <div className="w-full h-[36px] flex justify-center gap-20 sm:gap-80 lg:gap-260 2xl:gap-260 ">

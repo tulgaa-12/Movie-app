@@ -12,6 +12,7 @@ type popularMovies = {
   original_title: string;
   overview: string;
   vote_average: number;
+  poster_path: string;
 };
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
@@ -42,10 +43,11 @@ export const Popular = () => {
             <div
               key={index}
               onClick={() => routerHandler(`/Details/${el.id}`)}
-              className="hover:opacity-[0.3]">
+              className="hover:opacity-[0.3]"
+            >
               <div className="relative w-[157px] h-[233px] rounded-lg   xl:w-[229px] xl:h-[340px] 2xl:w-[229px] 2xl:h-[340px] ">
                 <Image
-                  src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
                   fill
                   alt={""}
                   objectFit="cover"

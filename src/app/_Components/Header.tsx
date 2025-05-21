@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
-
 import { Input } from "@/components/ui/input";
-
+import axios from "axios";
 import { ChevronRight, Film, Moon, Search, Sun } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -11,28 +9,71 @@ import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
-  NavigationMenuIndicator,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const Header = () => {
+type LikeMovie = {
+  adult: boolean;
+  backdrop_path: string;
+  id: number;
+  title: string;
+  overview: string;
+  vote_average: number;
+  original_title: string;
+  genre_ids: number[];
+  poster_path: string;
+};
+
+const API_TOKEN =
+  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
+
+export const Header = ({
+  page,
+  searchValue,
+}: {
+  page: string;
+  searchValue: string;
+}) => {
   const { setTheme, theme } = useTheme();
   const [input, setInput] = useState(false);
-  const [value, setValue] = useState("");
+
+  const [value, setValue] = useState<string>("");
+  const [results, setResults] = useState<LikeMovie[]>([]);
   const handleClick = () => {
     setInput(true);
   };
-  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
-  console.log(value);
 
+  useEffect(() => {
+    const search = async () => {
+      try {
+        const res = await axios.get(
+          `https://api.themoviedb.org/3/search/movie?query=${searchValue}&language=en-US&page=${page}`,
+          {
+            headers: {
+              Authorization: API_TOKEN,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        setResults(res.data.results);
+      } catch (error) {
+        console.error("aldaa", error);
+      }
+    };
+
+    if (searchValue) {
+      search();
+    }
+  }, [searchValue, page]);
+  console.log(value);
   const isDark = theme === "dark";
 
   const Toggle = () => setTheme(isDark ? "light" : "dark");
@@ -51,6 +92,7 @@ export const Header = () => {
                   <NavigationMenuTrigger>
                     {!input && <div>Genre</div>}
                   </NavigationMenuTrigger>
+
                   <NavigationMenuContent
                     style={{
                       display: "flex",
@@ -82,12 +124,12 @@ export const Header = () => {
                         <Badge
                           variant="outline"
                           className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Animation <ChevronRight />
+                          Game-Show <ChevronRight />
                         </Badge>
                         <Badge
                           variant="outline"
                           className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Biography <ChevronRight />
+                          History <ChevronRight />
                         </Badge>
                       </div>
                       <div className="flex flex-row gap-7">
@@ -99,7 +141,7 @@ export const Header = () => {
                         <Badge
                           variant="outline"
                           className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Crime <ChevronRight />{" "}
+                          Crime <ChevronRight />
                         </Badge>
                       </div>
                       <div className="flex flex-row gap-7">
@@ -129,7 +171,7 @@ export const Header = () => {
                         <Badge
                           variant="outline"
                           className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Film-Noir <ChevronRight />{" "}
+                          Film-Noir <ChevronRight />
                         </Badge>
                       </div>
                       <div className="flex flex-row gap-7">
@@ -231,17 +273,18 @@ export const Header = () => {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            {input && (
-              <Input
-                placeholder="...Search"
-                className="w-[151px] sm:w-[251px] lg:w-[379px] "
-                onChange={inputHandler}
-              />
-            )}
+
+            <Input
+              placeholder="...Search"
+              className="w-[157px] sm:w-[251px] lg:w-[379px] "
+              type="Search"
+              value={value}
+              onChange={handleChange}
+            />
           </div>
         )}
         {!input && (
-          <Button onClick={handleClick}>
+          <Button onClick={handleClick} className="pl-[300px] ">
             <Search />
           </Button>
         )}
