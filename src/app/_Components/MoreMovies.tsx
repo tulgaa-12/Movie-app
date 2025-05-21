@@ -6,6 +6,7 @@ import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Star } from "lucide-react";
+import Link from "next/link";
 
 type Moremovie = {
   adult: boolean;
@@ -24,7 +25,7 @@ const API_TOKEN =
 
 export const Moremovies = ({ id }: { id: string }) => {
   const [Like, setLike] = useState<Moremovie[]>([]);
-
+  console.log(Like, "index");
   useEffect(() => {
     const Mores = async () => {
       try {
@@ -39,7 +40,7 @@ export const Moremovies = ({ id }: { id: string }) => {
             }
           ),
         ]);
-
+        console.log(more.data.results, "aldaa");
         setLike(more.data.results.splice(0, 5));
       } catch (error) {
         console.error("aldaa", error);
@@ -61,10 +62,11 @@ export const Moremovies = ({ id }: { id: string }) => {
         className="w-full h-[36px] flex justify-center gap-30 sm:gap-80
       md:gap-120 lg:gap-200  2xl:gap-210">
         <h3 className="font-semibold ">More like this</h3>
-
-        <Button variant="ghost">
-          See More <ArrowRight />
-        </Button>
+        <Link href={`/moremovie/${id}`}>
+          <Button variant="ghost">
+            See More <ArrowRight />
+          </Button>
+        </Link>
       </div>
       <div>
         <div className="flex flex-row gap-5 w-[335px] overflow-x-auto overflow-visible md:overflow-hidden md:flex-wrap md:justify-center md:flex-row md:w-full lg:justify-center lg:w-[1024px] xl:w-[1080px]">

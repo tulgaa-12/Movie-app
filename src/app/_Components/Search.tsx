@@ -96,11 +96,13 @@ export const Search = ({
             },
           }
         );
+        console.log(res, "input");
         setResults(res.data.results);
       } catch (error) {
         console.error("aldaa", error);
       }
     };
+
     if (searchValue) {
       search();
     }
@@ -120,7 +122,7 @@ export const Search = ({
               className="w-full h-64 object-cover rounded"
             />
             <h3 className="mt-2 text-sm font-semibold">{movie.title}</h3>
-            <p className="text-xs text-gray-600">⭐ {movie.vote_average}</p>
+            <p className="text-xs text-gray-600"> {movie.vote_average}</p>
           </div>
         ))}
       </div>

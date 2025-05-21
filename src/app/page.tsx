@@ -5,6 +5,7 @@ import { Header } from "./_Components/Header";
 import { MovieFrame } from "./_Components/MovieFrame";
 import { AllCard } from "./_Components/AllCard";
 import { FooterContent } from "./_Components/FooterContent";
+import { Search } from "./_Components/Search";
 
 const Home = () => {
   return (
@@ -13,6 +14,7 @@ const Home = () => {
       <MovieFrame />
       <AllCard />
       <FooterContent />
+      <Search page="" searchValue="" />
     </div>
   );
 };

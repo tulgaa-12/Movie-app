@@ -44,12 +44,7 @@ const Home = async ({ params }: Pageprops) => {
 
   return (
     <div id={id} className="flex flex-col gap-10  justify-center items-center">
-      <Header />
-      <Selected id={id} />
-      <MovieDescription page="1" genreIds={genreIds} />
-      <Crews id={id} />
-      <Moremovies id={id} />
-      {/* <MoreLikeMovies id={id} /> */}
+      <MoreLikeMovies id={id} />
       <FooterContent />
     </div>
   );
