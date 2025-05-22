@@ -25,7 +25,6 @@ const API_TOKEN =
 
 export const Moremovies = ({ id }: { id: string }) => {
   const [Like, setLike] = useState<Moremovie[]>([]);
-  console.log(Like, "index");
   useEffect(() => {
     const Mores = async () => {
       try {
@@ -40,7 +39,6 @@ export const Moremovies = ({ id }: { id: string }) => {
             }
           ),
         ]);
-        console.log(more.data.results, "aldaa");
         setLike(more.data.results.splice(0, 5));
       } catch (error) {
         console.error("aldaa", error);
@@ -60,7 +58,8 @@ export const Moremovies = ({ id }: { id: string }) => {
     <div className="flex justify-center flex-col gap-[50px] lg:w-[1080px] mb-">
       <div
         className="w-full h-[36px] flex justify-center gap-30 sm:gap-80
-      md:gap-120 lg:gap-200  2xl:gap-210">
+      md:gap-120 lg:gap-200  2xl:gap-210"
+      >
         <h3 className="font-semibold ">More like this</h3>
         <Link href={`/moremovie/${id}`}>
           <Button variant="ghost">
@@ -74,7 +73,8 @@ export const Moremovies = ({ id }: { id: string }) => {
             <div
               key={index}
               onClick={() => routerHandler(`/Details/${el.id}`)}
-              className="w-[157px]  lg:w-[190px]  ">
+              className="w-[157px]  lg:w-[190px] hover:opacity-[0.3] "
+            >
               <img
                 src={`https://image.tmdb.org/t/p/original${el.poster_path}`}
                 alt={el.title}

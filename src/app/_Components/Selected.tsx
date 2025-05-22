@@ -3,7 +3,6 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Star, Play } from "lucide-react";
-import { Trailerbutton } from "./Trailerbutton";
 import { Button } from "@/components/ui/button";
 type Movies = {
   id: string;
@@ -49,7 +48,8 @@ export const Selected = ({ id }: { id: string }) => {
       {videos.map((el) => (
         <div
           key={el.id}
-          className="md:w-[768px] md:flex justify-center md:flex-col lg:w-[1024px] xl:w-[1080px]  ">
+          className="md:w-[768px] md:flex justify-center md:flex-col lg:w-[1024px] xl:w-[1080px]  "
+        >
           <div className="flex flex-row justify-between">
             <div className="flex flex-col pl-[20px] pb-[10px]">
               <h2 className="text-xl mt-2 font-semibold text-[24px]">

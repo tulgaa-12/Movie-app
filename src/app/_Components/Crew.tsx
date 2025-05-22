@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import { Users } from "lucide-react";
 import { useState, useEffect } from "react";
 import * as React from "react";
 
@@ -23,15 +24,23 @@ const API_TOKEN =
 export const Crews = ({ id }: { id: string }) => {
   const [castList, setCastList] = useState<CastMember[]>([]);
   const [crewList, setCrewList] = useState<Crew[]>([]);
-
   const jobs = ["Director", "Writer", "Stars"];
 
   useEffect(() => {
     const Allcrew = async () => {
       try {
-        const [creditsRes] = await Promise.all([
+        const [creditsRes, videoRes] = await Promise.all([
           axios.get(
             `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${API_TOKEN}`,
+              },
+            }
+          ),
+          axios.get(
+            `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
             {
               headers: {
                 "Content-Type": "application/json",

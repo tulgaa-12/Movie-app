@@ -34,6 +34,7 @@ export const MoreLikeMovies = ({ id }: { id: string }) => {
             },
           }
         );
+
         setLike(movie.data.results.splice(0, 10));
       } catch (error) {
         console.error("aldaa", error);
@@ -41,7 +42,7 @@ export const MoreLikeMovies = ({ id }: { id: string }) => {
     };
 
     Mores();
-  }, []);
+  }, [id]);
   const router = useRouter();
 
   const routerHandler = (path: string) => {
@@ -54,12 +55,13 @@ export const MoreLikeMovies = ({ id }: { id: string }) => {
         <div>
           <h3 className="font-semibold text-[24px]">More like this</h3>
         </div>
-        <div className=" flex flex-col  gap-5 grid grid-cols-2 lg:grid-cols-5 lg:gap-50">
+        <div className=" flex flex-col  gap-5 grid grid-cols-2 lg:grid-cols-5 lg:gap-50 ">
           {Like.map((el, index) => (
             <div
               onClick={() => routerHandler(`/Details/${el.id}`)}
               key={index}
-              className="flex flex-col w-[157px] lg:w-[190px] xl:w-[229px]  ">
+              className="flex flex-col w-[157px] lg:w-[190px] xl:w-[229px] hover:opacity-[0.3]"
+            >
               <img
                 src={`https://image.tmdb.org/t/p/original${el.poster_path}`}
                 alt={el.title}

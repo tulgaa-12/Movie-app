@@ -6,7 +6,7 @@ import { Crews } from "@/app/_Components/Crew";
 import { Moremovies } from "@/app/_Components/MoreMovies";
 import { FooterContent } from "@/app/_Components/FooterContent";
 import { MoreLikeMovies } from "@/app/_Components/MoreLikeMovies";
-import { Search } from "@/app/_Components/Search";
+import { AllSearch } from "@/app/_Components/Search";
 interface Pageprops {
   params: {
     id: string;
@@ -17,7 +17,7 @@ const API_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsIm5iZiI6MTc0MjE3NTA4OS4zODksInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
 
 const Home = async ({ params }: Pageprops) => {
-  const { id } = params;
+  const { id } = await params;
 
   const { data } = await axios.get(`https://api.themoviedb.org/3`, {
     headers: {
@@ -49,7 +49,6 @@ const Home = async ({ params }: Pageprops) => {
       <MovieDescription page="1" genreIds={genreIds} />
       <Crews id={id} />
       <Moremovies id={id} />
-      {/* <MoreLikeMovies id={id} /> */}
       <FooterContent />
     </div>
   );
