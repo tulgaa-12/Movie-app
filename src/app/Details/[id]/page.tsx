@@ -44,7 +44,7 @@ const Home = async ({ params }: Pageprops) => {
 
   return (
     <div id={id} className="flex flex-col gap-10  justify-center items-center">
-      <Header page="" searchValue="" />
+      <Header page="1" searchValue="" />
       <Selected id={id} />
       <MovieDescription page="1" genreIds={genreIds} />
       <Crews id={id} />

@@ -53,7 +53,7 @@ export const AllSearch = ({
   }, [searchValue, page]);
 
   return (
-    <div className="w-[335px] flex flex-col">
+    <div className="w-[335px] flex flex-col bg-[red]">
       {results.map((el, index) => (
         <div key={index} className="w-[311px] h-[116px] flex flex-row">
           <div>

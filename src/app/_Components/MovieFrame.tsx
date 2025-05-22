@@ -49,8 +49,7 @@ export const MovieFrame = () => {
       <Carousel
         plugins={[plugin.current]}
         onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
-      >
+        onMouseLeave={plugin.current.reset}>
         <CarouselContent>
           {Upcoming.map((el, index) => (
             <CarouselItem key={index} className="">
@@ -88,7 +87,10 @@ export const MovieFrame = () => {
                   className="bg-fixed "
                 />
               </div>
-              <div className=" w-full pt-[20px] flex flex-col gap-3 lg:hidden">
+
+              <div
+                key={index}
+                className=" w-full pt-[20px] flex flex-col gap-3 xl:absolute xl:bottom-5 xl:left-5 xl:z-10 ">
                 <div className="flex justify-between pl-[20px]">
                   <div className="flex flex-col">
                     <p className="text-sm font-normal">Now Playing:</p>
