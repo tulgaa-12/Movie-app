@@ -27,6 +27,12 @@ type LikeMovie = {
   original_title: string;
   genre_ids: number[];
   poster_path: string;
+  name: string;
+};
+
+type Genre = {
+  name: string;
+  id: number;
 };
 
 const API_TOKEN =
@@ -44,45 +50,54 @@ export const Header = ({
 
   const [value, setValue] = useState<string>("");
   const [results, setResults] = useState<LikeMovie[]>([]);
+
+  const [genres, setGenres] = useState<Genre[]>([]);
+
   const handleClick = () => {
     setInput(true);
   };
 
   useEffect(() => {
-    const search = setTimeout(async () => {
-      if (value.trim().length === 0) {
-        setResults([]);
-        return;
-      }
-
+    const search = async () => {
       try {
         const res = await axios.get(
-          `https://api.themoviedb.org/3/search/movie?query=${value}&language=en-US&page=${page}`,
+          `https://api.themoviedb.org/3/search/movie?query=${searchValue}&language=en-US&page=${page}`,
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `${API_TOKEN}`,
+              Authorization: `Bearer ${API_TOKEN}`,
             },
           }
         );
-        console.log("API response:", res.data);
-        setResults(res.data.results);
       } catch (error) {
-        console.error("Хайлтын алдаа:", error);
+        console.error("aldaa", error);
       }
-    }, 500);
+    };
+    if (searchValue) {
+      search();
+    }
+  }, [searchValue]);
 
-    return () => clearTimeout(search);
-  }, [value, page]);
+  useEffect(() => {
+    const genre = async () => {
+      const movieGenres = await axios.get(
+        `https://api.themoviedb.org/3/genre/movie/list?language=en`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${API_TOKEN}`,
+          },
+        }
+      );
+
+      setGenres(movieGenres.data.genres);
+    };
+
+    genre();
+  }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
-  };
-
-  const Handclear = () => {
-    setValue("");
-    setResults([]);
-    setInput(false);
   };
 
   const isDark = theme === "dark";
@@ -115,7 +130,8 @@ export const Header = ({
                       flexDirection: "column",
                       height: "513px",
                       width: "335px",
-                    }}>
+                    }}
+                  >
                     <div className="w-[213px] h-[60px] flex flex-col gap-[10px]">
                       <h1 className="font-semibold">Genres</h1>
                       <p>See lists of movies by genre</p>
@@ -123,167 +139,21 @@ export const Header = ({
                     <div className="w-[537px] h-[33px] flex justify-center items-center ">
                       <div className=" w-[537px]  border-[1px]"></div>
                     </div>
-                    <div className="flex flex-col gap-4">
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Action <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full hover:bg-[#E4E4E7] h-[20px] border">
-                          Adventure <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Game-Show <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          History <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Comedy <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Crime <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Documentary <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Drama <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Family <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Fantasy <ChevronRight />
-                        </Badge>
-
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Film-Noir <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Game-Show <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          History <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Horrer <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Music <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Musical <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Mystery <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          News <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Reality-TV <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Romance <ChevronRight />
-                        </Badge>
-
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Sci-Fi <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Short <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Sport <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Talk-Show <ChevronRight />
-                        </Badge>
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          Triller <ChevronRight />
-                        </Badge>
-                      </div>
-                      <div className="flex flex-row gap-7">
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                          War <ChevronRight />
-                        </Badge>
-
-                        <Badge
-                          variant="outline"
-                          className="flex flex-row  items-center rounded-full h-[20px] w-[87px] hover:bg-[#E4E4E7] border">
-                          Western <ChevronRight />
-                        </Badge>
-                      </div>
+                    <div className="flex flex-col gap-y-7 grid grid-cols-3">
+                      {genres?.map((el, index) => {
+                        return (
+                          <Link href={`/Genre/${el.id}`}>
+                            <div key={index} className="flex flex-row ">
+                              <Badge
+                                variant="outline"
+                                className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
+                              >
+                                {el.name} <ChevronRight />
+                              </Badge>
+                            </div>
+                          </Link>
+                        );
+                      })}
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -291,15 +161,22 @@ export const Header = ({
             </NavigationMenu>
 
             <Input
-              placeholder="...Search"
+              placeholder="       Search.."
               className="w-[157px] sm:w-[251px] lg:w-[379px] "
               type="Search"
               onChange={(e) => setValue(e.target.value)}
+              style={{ paddingLeft: "10px" }}
             />
+            {/* <div className="absolute left-249 top-7.5  -translate-y-1/2">
+              <Search className=" w-[16px] h-[16px] text-[#71717A]" />
+            </div> */}
           </div>
         )}
         {!input && (
-          <Button onClick={handleClick} className="pl-[300px] ">
+          <Button
+            onClick={handleClick}
+            className="pl-[300px] ml-[200px] xl:ml-[1000px]"
+          >
             <Search />
           </Button>
         )}
@@ -323,25 +200,3 @@ Genre
 <ChevronRight />
 </Button> */
 }
-
-//   useEffect(() => {
-//   const search = async () => {
-//     try {
-//       const res = await axios.get(
-//         `https://api.themoviedb.org/3/search/movie?query=${searchValue}&language=en-US&page=${page}`,
-//         {
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${API_TOKEN}`,
-//           },
-//         }
-//       );
-//     } catch (error) {
-//       console.error("aldaa", error);
-//     }
-//   };
-//   if (searchValue) {
-//     search();
-//   }
-// }, [searchValue, page]);
-// console.log(value);

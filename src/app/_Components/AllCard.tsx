@@ -31,7 +31,7 @@ export const AllCard = () => {
   };
   return (
     <div className="flex justify-center items-center flex-col gap-5 w-full">
-      <div className="w-full h-[36px] flex justify-center gap-20 sm:gap-80 lg:gap-260 2xl:gap-260 ">
+      <div className="w-full h-[36px] flex justify-center gap-20 sm:gap-80 lg:gap-180 xl:gap-260 2xl:gap-260 ">
         <h3 className="font-inter text-[24px]">Upcoming </h3>
         <Button variant="ghost">
           See More <ArrowRight />

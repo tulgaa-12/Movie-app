@@ -1,9 +1,7 @@
 "use client";
-
+import { Star } from "lucide-react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import * as React from "react";
-import { Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 type LikeMovie = {
   adult: boolean;
@@ -16,17 +14,17 @@ type LikeMovie = {
   genre_ids: number[];
   poster_path: string;
 };
-
 const API_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsIm5iZiI6MTc0MjE3NTA4OS4zODksInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
 
-export const MoreLikeMovies = ({ id }: { id: string }) => {
-  const [Like, setLike] = useState<LikeMovie[]>([]);
+export const Allgenre = ({ id }: { id: string }) => {
+  const [genre, setGenre] = useState<LikeMovie[]>([]);
+
   useEffect(() => {
     const Mores = async () => {
       try {
         const movie = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=1`,
+          `https://api.themoviedb.org/3/discover/movie?language=en&with_genres=${id}&page=${1}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -35,7 +33,7 @@ export const MoreLikeMovies = ({ id }: { id: string }) => {
           }
         );
 
-        setLike(movie.data.results.splice(0, 10));
+        setGenre(movie.data.results.splice(0, 10));
       } catch (error) {
         console.error("aldaa", error);
       }
@@ -43,6 +41,7 @@ export const MoreLikeMovies = ({ id }: { id: string }) => {
 
     Mores();
   }, [id]);
+
   const router = useRouter();
 
   const routerHandler = (path: string) => {
@@ -56,11 +55,11 @@ export const MoreLikeMovies = ({ id }: { id: string }) => {
           <h3 className="font-semibold text-[24px]">More like this</h3>
         </div>
         <div className=" flex flex-col  gap-5 grid grid-cols-2 lg:grid-cols-5 lg:gap-50 ">
-          {Like.map((el, index) => (
+          {genre.map((el, index) => (
             <div
-              onClick={() => routerHandler(`/Details/${el.id}`)}
               key={index}
               className="flex flex-col w-[157px] lg:w-[190px] xl:w-[229px] hover:opacity-[0.3]"
+              onClick={() => routerHandler(`/Details/${el.id}`)}
             >
               <img
                 src={`https://image.tmdb.org/t/p/original${el.poster_path}`}

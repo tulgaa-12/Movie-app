@@ -17,7 +17,7 @@ const API_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsIm5iZiI6MTc0MjE3NTA4OS4zODksInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
 
 const Home = async ({ params }: Pageprops) => {
-  const { id } = await params;
+  const { id } = params;
 
   const { data } = await axios.get(`https://api.themoviedb.org/3`, {
     headers: {
@@ -43,7 +43,7 @@ const Home = async ({ params }: Pageprops) => {
   console.log("Genre IDs:", genreIds);
 
   return (
-    <div id={id} className="flex flex-col gap-10  justify-center items-center">
+    <div id={id} className="flex flex-col gap-10 ">
       <Header page="1" searchValue="" />
       <MoreLikeMovies id={id} />
       <FooterContent />

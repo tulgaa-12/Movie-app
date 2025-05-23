@@ -69,7 +69,7 @@ export const Crews = ({ id }: { id: string }) => {
           <div className="flex flex-col gap-20">
             {jobs.map((el) => {
               return (
-                <div className="flex flex-col gap-5">
+                <div key={el} className="flex flex-col gap-5">
                   <div className="font-semibold text-[16px]">{el}</div>
                 </div>
               );
