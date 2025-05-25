@@ -1,11 +1,12 @@
 "use client";
 import * as React from "react";
+import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Star, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 type Movies = {
-  id: string;
+  id: number;
   backdrop_path: string;
   title: string;
   original_title: string;
@@ -15,6 +16,7 @@ type Movies = {
   vote_count: number;
   poster_path: string;
   genre_ids: number[];
+  ids: number;
 };
 
 const API_TOKEN =
@@ -22,7 +24,8 @@ const API_TOKEN =
 
 export const Selected = ({ id }: { id: string }) => {
   const [videos, setVideos] = useState<Movies[]>([]);
-
+  const [selectedTrailer, setSelectedTrailer] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,13 +46,44 @@ export const Selected = ({ id }: { id: string }) => {
     fetchData();
   }, [id]);
 
+  const fetchTrailer = async (movieId: number) => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
+        {
+          headers: {
+            Authorization: `Bearer ${API_TOKEN}`,
+          },
+        }
+      );
+
+      const trailers = response.data.results;
+      const trailer = trailers.find(
+        (vid: any) => vid.type === "Trailer" && vid.site === "YouTube"
+      );
+
+      if (trailer) {
+        setSelectedTrailer(trailer.key);
+        setIsModalOpen(true);
+      }
+      console.log(trailers, "ald");
+    } catch (err) {
+      console.error("Error fetching trailer:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedTrailer) {
+      window.location.href = `https://www.youtube.com/watch?v=${selectedTrailer}`;
+    }
+  }, [selectedTrailer]);
+
   return (
     <div className="flex flex-col items-center justify-center">
-      {videos.map((el) => (
+      {videos.map((el, index) => (
         <div
-          key={el.id}
-          className="md:w-[768px] md:flex justify-center md:flex-col lg:w-[1024px] xl:w-[1080px]  "
-        >
+          key={index}
+          className="md:w-[768px] md:flex justify-center md:flex-col lg:w-[1024px] xl:w-[1080px]  ">
           <div className="flex flex-row justify-between">
             <div className="flex flex-col pl-[20px] pb-[10px]">
               <h2 className="text-xl mt-2 font-semibold text-[24px]">
@@ -80,7 +114,9 @@ export const Selected = ({ id }: { id: string }) => {
               />
             </div>
             <div className="absolute bottom-5 left-5  z-10   lg:left-80">
-              <Button className="absolute bottom-5 left-5 z-10  rounded-full ">
+              <Button
+                className="absolute bottom-5 left-5 z-10  rounded-full "
+                onClick={() => fetchTrailer(el.id)}>
                 <Play />
               </Button>
             </div>

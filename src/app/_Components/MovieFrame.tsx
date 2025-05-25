@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
-
+import axios from "axios";
 import Image from "next/image";
 
 import {
@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { getHeroApi } from "../hooks/GetHeroApi";
 import { Play, Star } from "lucide-react";
+import Link from "next/link";
 
 type UpcomingMovies = {
   adult: boolean;
@@ -27,10 +28,14 @@ type UpcomingMovies = {
   original_title: string;
 };
 
-export const MovieFrame = () => {
+const API_TOKEN =
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsIm5iZiI6MTc0MjE3NTA4OS4zODksInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
+
+export const MovieFrame = ({ id }: { id: string }) => {
   const [Upcoming, setUpcoming] = useState<UpcomingMovies[]>([]);
   const [Movie, setMovie] = useState([]);
-
+  const [selectedTrailer, setSelectedTrailer] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(() => {
     const Playing = async () => {
       const response = await getHeroApi();
@@ -39,6 +44,39 @@ export const MovieFrame = () => {
     };
     Playing();
   }, []);
+
+  const fetchTrailer = async (movieId: number) => {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
+        {
+          headers: {
+            Authorization: `Bearer ${API_TOKEN}`,
+          },
+        }
+      );
+
+      const trailers = response.data.results;
+      const trailer = trailers.find(
+        (vid: any) => vid.type === "Trailer" && vid.site === "YouTube"
+      );
+
+      if (trailer) {
+        setSelectedTrailer(trailer.key);
+        setIsModalOpen(true);
+      }
+      console.log(trailers, "ald");
+    } catch (err) {
+      console.error("Error fetching trailer:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedTrailer) {
+      window.location.href = `https://www.youtube.com/watch?v=${selectedTrailer}`;
+    }
+  }, [selectedTrailer]);
+
   console.log(Upcoming, "upcoming");
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
@@ -49,23 +87,9 @@ export const MovieFrame = () => {
       <Carousel
         plugins={[plugin.current]}
         onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
-      >
+        onMouseLeave={plugin.current.reset}>
         <CarouselContent>
           {Upcoming.map((el, index) => (
-            // <CarouselItem key={index} className="">
-            //   <div className="relative w-full h-[246px]  sm:h-[350px] lg:h-[510px] 2xl:h-[600px] ">
-            //     <Image
-            //       src={`https://image.tmdb.org/t/p/original/${el.backdrop_path}  `}
-            //       fill
-            //       alt={``}
-            //       objectFit="cover"
-            //       priority
-            //       className="bg-fixed "
-            //     />
-            //   </div>
-
-            // </CarouselItem>
             <CarouselItem key={index} className="relative">
               <div className="relative w-full h-[246px] sm:h-[350px] lg:h-[510px] 2xl:h-[800px] 2xl:w-full">
                 <Image
@@ -90,7 +114,9 @@ export const MovieFrame = () => {
                     </div>
                   </div>
                   <p className="text-sm mt-2">{el.overview}</p>
-                  <Button className="mt-3 w-fit flex gap-2">
+                  <Button
+                    className="mt-3 w-fit flex gap-2"
+                    onClick={() => fetchTrailer(el.id)}>
                     <Play />
                     Watch Trailer
                   </Button>
@@ -98,8 +124,7 @@ export const MovieFrame = () => {
               </div>
               <div
                 key={index}
-                className=" w-full pt-[20px] flex flex-col gap-3  lg:hidden "
-              >
+                className=" w-full pt-[20px] flex flex-col gap-3  lg:hidden ">
                 <div className="flex justify-between pl-[20px]">
                   <div className="flex flex-col">
                     <p className="text-sm font-normal">Now Playing:</p>
@@ -117,7 +142,9 @@ export const MovieFrame = () => {
                   <p className="text-[14px] font-normal">{`${el.overview}`}</p>
                 </div>
                 <div className="pl-[20px]">
-                  <Button className="font-medium w-[145px] h-[40px] flex flex-row ">
+                  <Button
+                    className="font-medium w-[145px] h-[40px] flex flex-row "
+                    onClick={() => fetchTrailer(el.id)}>
                     <Play />
                     Watch Trailer
                   </Button>

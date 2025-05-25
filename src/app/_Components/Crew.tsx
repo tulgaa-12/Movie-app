@@ -49,7 +49,7 @@ export const Crews = ({ id }: { id: string }) => {
             }
           ),
         ]);
-        console.log(creditsRes.data.crew);
+        console.log("all", creditsRes.data.crew);
         setCastList([...creditsRes.data.cast.splice(0, 3)]);
         setCrewList([...creditsRes.data.crew.slice(0, 1)]);
       } catch (error) {
@@ -58,14 +58,13 @@ export const Crews = ({ id }: { id: string }) => {
     };
     Allcrew();
   }, [id]);
-  console.log(crewList);
+
   return (
     <div className="w-full flex   md:justify-center">
       {crewList.map((el, index) => (
         <div
           key={index}
-          className="pl-[15px] flex gap-20 flex-row md:w-[1080px]"
-        >
+          className="pl-[15px] flex gap-20 flex-row md:w-[1080px]">
           <div className="flex flex-col gap-20">
             {jobs.map((el) => {
               return (
@@ -84,11 +83,11 @@ export const Crews = ({ id }: { id: string }) => {
                 .map((el) => el.name)
                 .join(", ") || "Not Available"}
             </p>
-            <p className="flex flex-wrap">
-              {castList.map((el) => (
-                <p>{el.name}--</p>
+            <div className="flex flex-wrap">
+              {castList.map((el, index) => (
+                <p key={index}>{el.name}--</p>
               ))}
-            </p>
+            </div>
           </div>
           <div className="w-[335px] border-[1px] hidden xl:border-[1px] xl:w-[1080px] xl:block"></div>
         </div>

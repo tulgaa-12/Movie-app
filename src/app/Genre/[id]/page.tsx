@@ -29,7 +29,7 @@ const Home = async ({ params }: Pageprops) => {
 
   return (
     <div className="flex flex-col gap-10">
-      <Header page="1" searchValue="" />
+      <Header page="home" id="" />
       <Allgenre id={id} />
       <FooterContent />
     </div>

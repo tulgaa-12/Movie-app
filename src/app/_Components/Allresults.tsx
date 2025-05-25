@@ -14,7 +14,7 @@ type comingMovies = {
 export const Allresults = () => {
   return (
     <div className="flex flex-col">
-      <Header page="" searchValue="" />
+      <Header page="1" id="" />
       <div>
         <div>
           <h3 className="font-semibold text-[24px]">Search results</h3>

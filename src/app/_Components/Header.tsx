@@ -34,17 +34,14 @@ type Genre = {
   name: string;
   id: number;
 };
+interface User {
+  id: string;
+}
 
 const API_TOKEN =
-  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
+  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsIm5iZiI6MTc0MjE3NTA4OS4zODksInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
 
-export const Header = ({
-  page,
-  searchValue,
-}: {
-  page: string;
-  searchValue: string;
-}) => {
+export const Header = ({ page, id }: { page: string; id: string }) => {
   const { setTheme, theme } = useTheme();
   const [input, setInput] = useState(false);
 
@@ -57,28 +54,58 @@ export const Header = ({
     setInput(true);
   };
 
+  // useEffect(() => {
+  //   // hailtiin useEffect
+  //   const search = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         `https://api.themoviedb.org/3/search/movie?query=${value}&language=en-US&page=${1}`,
+  //         {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //             Authorization: `Bearer ${API_TOKEN}`,
+  //           },
+  //         }
+  //       );
+
+  //       console.log(res.data.results, "all datta");
+  //       setResults(res.data.results);
+  //     } catch (error) {
+  //       console.error("aldaa", error);
+  //     }
+  //   };
+  //   if (id) {
+  //     search();
+  //   }
+  // }, [id]);
+
   useEffect(() => {
     const search = async () => {
       try {
         const res = await axios.get(
-          `https://api.themoviedb.org/3/search/movie?query=${searchValue}&language=en-US&page=${page}`,
+          `https://api.themoviedb.org/3/search/movie?query=${value}&language=en-US&page=1`,
           {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${API_TOKEN}`,
+              Authorization: API_TOKEN,
             },
           }
         );
+        setResults(res.data.results);
       } catch (error) {
         console.error("aldaa", error);
       }
     };
-    if (searchValue) {
+
+    if (value.trim() !== "") {
       search();
+    } else {
+      setResults([]); // Хоосон үед үр дүнг цэвэрлэнэ
     }
-  }, [searchValue]);
+  }, [value]);
 
   useEffect(() => {
+    // genre useEffect
     const genre = async () => {
       const movieGenres = await axios.get(
         `https://api.themoviedb.org/3/genre/movie/list?language=en`,
@@ -99,7 +126,7 @@ export const Header = ({
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
-
+  console.log(value);
   const isDark = theme === "dark";
   const router = useRouter();
 
@@ -130,8 +157,7 @@ export const Header = ({
                       flexDirection: "column",
                       height: "513px",
                       width: "335px",
-                    }}
-                  >
+                    }}>
                     <div className="w-[213px] h-[60px] flex flex-col gap-[10px]">
                       <h1 className="font-semibold">Genres</h1>
                       <p>See lists of movies by genre</p>
@@ -142,12 +168,11 @@ export const Header = ({
                     <div className="flex flex-col gap-y-7 grid grid-cols-3">
                       {genres?.map((el, index) => {
                         return (
-                          <Link href={`/Genre/${el.id}`}>
-                            <div key={index} className="flex flex-row ">
+                          <Link key={index} href={`/Genre/${el.id}`}>
+                            <div className="flex flex-row ">
                               <Badge
                                 variant="outline"
-                                className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border"
-                              >
+                                className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
                                 {el.name} <ChevronRight />
                               </Badge>
                             </div>
@@ -164,7 +189,7 @@ export const Header = ({
               placeholder="       Search.."
               className="w-[157px] sm:w-[251px] lg:w-[379px] "
               type="Search"
-              onChange={(e) => setValue(e.target.value)}
+              onChange={handleChange}
               style={{ paddingLeft: "10px" }}
             />
             {/* <div className="absolute left-249 top-7.5  -translate-y-1/2">
@@ -175,8 +200,7 @@ export const Header = ({
         {!input && (
           <Button
             onClick={handleClick}
-            className="pl-[300px] ml-[200px] xl:ml-[1000px]"
-          >
+            className="pl-[300px] ml-[200px] xl:ml-[1000px]">
             <Search />
           </Button>
         )}
@@ -186,9 +210,27 @@ export const Header = ({
         </Button>
       </div>
       <div>
-        {results.map((el, index) => {
-          return <AllSearch key={index} page="1" searchValue="" />;
-        })}
+        {results.length > 0 && (
+          <div className="absolute bg-white z-50 w-full max-h-[400px] overflow-auto border rounded-md p-4">
+            {results.map((movie) => (
+              <div
+                key={movie.id}
+                className="flex items-center gap-4 py-2 border-b">
+                <img
+                  src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                  alt={movie.title}
+                  className="w-[50px] h-auto rounded"
+                />
+                <div>
+                  <h3 className="font-semibold">{movie.title}</h3>
+                  <p className="text-sm text-gray-500">
+                    {movie.overview.slice(0, 80)}...
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

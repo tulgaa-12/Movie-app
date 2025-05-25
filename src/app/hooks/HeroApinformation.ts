@@ -6,7 +6,7 @@ const API_TOKEN =
 export const HeroApinformation = async (id: string) => {
   try {
     const response = await axios.get(
-      `https://api.themoviedb.org/3 /movie/${id}/credits?language=en-US`,
+      `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`,
       {
         headers: {
           "Content-Type": "application/json",

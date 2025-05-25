@@ -72,8 +72,10 @@ export const MovieDescription = ({
 
   return (
     <div className="grid grid-cols-4 flex flex-col items-center justify-center w-full gap-4 md:flex justify-center ">
-      {description.map((movie) => (
-        <div className="w-[375px] flex flex-row  justify-around  md:w-[768px] md:justify-center lg:w-[1024px] xl:w-[1080px]">
+      {description.map((movie, index) => (
+        <div
+          key={index}
+          className="w-[375px] flex flex-row  justify-around  md:w-[768px] md:justify-center lg:w-[1024px] xl:w-[1080px]">
           <div>
             <img
               src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -83,8 +85,7 @@ export const MovieDescription = ({
           </div>
           <div
             key={movie.id}
-            className="p-4 border w-[201px] rounded-lg flex flex-row md:w-[600px] lg:w-[1080px] "
-          >
+            className="p-4 border w-[201px] rounded-lg flex flex-row md:w-[600px] lg:w-[1080px] ">
             <div className="flex flex-wrap gap-2 mt-2">
               {movie.genre_ids.map((gid) => {
                 const genre = genresList.find((g) => g.id === gid);

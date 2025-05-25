@@ -7,6 +7,7 @@ import { Moremovies } from "@/app/_Components/MoreMovies";
 import { FooterContent } from "@/app/_Components/FooterContent";
 import { MoreLikeMovies } from "@/app/_Components/MoreLikeMovies";
 import { AllSearch } from "@/app/_Components/Search";
+
 interface Pageprops {
   params: {
     id: string;
@@ -44,7 +45,7 @@ const Home = async ({ params }: Pageprops) => {
 
   return (
     <div id={id} className="flex flex-col gap-10 ">
-      <Header page="1" searchValue="" />
+      <Header id="" page="home" />
       <MoreLikeMovies id={id} />
       <FooterContent />
     </div>
