@@ -34,7 +34,7 @@ export const Popular = () => {
     router.push(path);
   };
 
-  console.log(popular, "popular");
+  
   return (
     <div className="flex  flex-col gap-5 w-full">
       <div className="flex flex-col gap-7">

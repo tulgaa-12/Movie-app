@@ -1,11 +1,23 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { ChevronRight, Film, Moon, Search, Sun } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  ChevronRight,
+  Film,
+  Moon,
+  Search,
+  Sun,
+  Star,
+  ArrowRight,
+} from "lucide-react";
+
+import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -13,10 +25,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { AllSearch } from "./Search";
-import Link from "next/link";
+
 type LikeMovie = {
   adult: boolean;
   backdrop_path: string;
@@ -28,157 +37,106 @@ type LikeMovie = {
   genre_ids: number[];
   poster_path: string;
   name: string;
+  release_date: number;
 };
 
 type Genre = {
   name: string;
   id: number;
 };
-interface User {
-  id: string;
-}
-
 const API_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsIm5iZiI6MTc0MjE3NTA4OS4zODksInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
 
-export const Header = ({ page, id }: { page: string; id: string }) => {
+export const Header = () => {
   const { setTheme, theme } = useTheme();
   const [input, setInput] = useState(false);
-
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState("");
   const [results, setResults] = useState<LikeMovie[]>([]);
-
   const [genres, setGenres] = useState<Genre[]>([]);
+  const isDark = theme === "dark";
+  const router = useRouter();
 
-  const handleClick = () => {
-    setInput(true);
+  const handleClick = () => setInput(true);
+  const handleChange = (event) => {
+    setValue(event.target.value);
   };
 
-  // useEffect(() => {
-  //   // hailtiin useEffect
-  //   const search = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         `https://api.themoviedb.org/3/search/movie?query=${value}&language=en-US&page=${1}`,
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${API_TOKEN}`,
-  //           },
-  //         }
-  //       );
-
-  //       console.log(res.data.results, "all datta");
-  //       setResults(res.data.results);
-  //     } catch (error) {
-  //       console.error("aldaa", error);
-  //     }
-  //   };
-  //   if (id) {
-  //     search();
-  //   }
-  // }, [id]);
+  const toggleTheme = () => setTheme(isDark ? "light" : "dark");
 
   useEffect(() => {
-    const search = async () => {
+    const fetchResults = async () => {
       try {
         const res = await axios.get(
           `https://api.themoviedb.org/3/search/movie?query=${value}&language=en-US&page=1`,
           {
             headers: {
+              Authorization: `Bearer ${API_TOKEN}`,
               "Content-Type": "application/json",
-              Authorization: API_TOKEN,
             },
           }
         );
         setResults(res.data.results);
-      } catch (error) {
-        console.error("aldaa", error);
+      } catch (err) {
+        console.error("Search error", err);
       }
     };
 
-    if (value.trim() !== "") {
-      search();
-    } else {
-      setResults([]); // Хоосон үед үр дүнг цэвэрлэнэ
-    }
+    if (value.trim()) fetchResults();
   }, [value]);
 
   useEffect(() => {
-    // genre useEffect
-    const genre = async () => {
-      const movieGenres = await axios.get(
+    const fetchGenres = async () => {
+      const res = await axios.get(
         `https://api.themoviedb.org/3/genre/movie/list?language=en`,
         {
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${API_TOKEN}`,
+            "Content-Type": "application/json",
           },
         }
       );
-
-      setGenres(movieGenres.data.genres);
+      setGenres(res.data.genres);
     };
-
-    genre();
+    fetchGenres();
   }, []);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
-  console.log(value);
-  const isDark = theme === "dark";
-  const router = useRouter();
+  const handle = useRouter();
 
   const routerHandler = (path: string) => {
-    router.push(path);
+    handle.push(path);
   };
 
-  const Toggle = () => setTheme(isDark ? "light" : "dark");
   return (
-    <div className="h-[59px] w-full flex justify-center items-center ">
-      <div className="h-[36px] w-full flex flex-row justify-around items-center sm:">
+    <div className="relative h-[59px] w-full flex justify-center items-center">
+      <div className="h-[36px] w-full flex flex-row justify-around items-center">
         <div className="flex flex-row gap-[7px]">
-          <Film style={{ color: "Indigo" }} />
-          <p style={{ color: "Indigo" }}>Movie Z</p>
+          <Film className="text-indigo-600" />
+          <p className="text-indigo-600">Movie Z</p>
         </div>
-        {input && (
-          <div className=" flex gap-[12px]">
+
+        {input ? (
+          <div className="flex gap-[12px]">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>
-                    {!input && <div>Genre</div>}
-                  </NavigationMenuTrigger>
-
-                  <NavigationMenuContent
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      height: "513px",
-                      width: "335px",
-                    }}>
+                  <NavigationMenuTrigger></NavigationMenuTrigger>
+                  <NavigationMenuContent className="flex flex-col h-[513px] w-[335px]">
                     <div className="w-[213px] h-[60px] flex flex-col gap-[10px]">
                       <h1 className="font-semibold">Genres</h1>
                       <p>See lists of movies by genre</p>
                     </div>
-                    <div className="w-[537px] h-[33px] flex justify-center items-center ">
-                      <div className=" w-[537px]  border-[1px]"></div>
+                    <div className="w-[537px] h-[33px] flex justify-center items-center">
+                      <div className="w-[537px] border-[1px]"></div>
                     </div>
-                    <div className="flex flex-col gap-y-7 grid grid-cols-3">
-                      {genres?.map((el, index) => {
-                        return (
-                          <Link key={index} href={`/Genre/${el.id}`}>
-                            <div className="flex flex-row ">
-                              <Badge
-                                variant="outline"
-                                className="flex flex-row items-center rounded-full h-[20px] hover:bg-[#E4E4E7] border">
-                                {el.name} <ChevronRight />
-                              </Badge>
-                            </div>
-                          </Link>
-                        );
-                      })}
+                    <div className="grid grid-cols-3 gap-y-7">
+                      {genres.map((el) => (
+                        <Link key={el.id} href={`/Genre/${el.id}`}>
+                          <Badge
+                            variant="outline"
+                            className="rounded-full h-[20px] hover:bg-gray-200 border">
+                            {el.name} <ChevronRight />
+                          </Badge>
+                        </Link>
+                      ))}
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -186,18 +144,14 @@ export const Header = ({ page, id }: { page: string; id: string }) => {
             </NavigationMenu>
 
             <Input
-              placeholder="       Search.."
-              className="w-[157px] sm:w-[251px] lg:w-[379px] "
-              type="Search"
+              placeholder="Search..."
+              className="w-[157px] sm:w-[251px] lg:w-[379px]"
+              type="text"
               onChange={handleChange}
-              style={{ paddingLeft: "10px" }}
+              value={value}
             />
-            {/* <div className="absolute left-249 top-7.5  -translate-y-1/2">
-              <Search className=" w-[16px] h-[16px] text-[#71717A]" />
-            </div> */}
           </div>
-        )}
-        {!input && (
+        ) : (
           <Button
             onClick={handleClick}
             className="pl-[300px] ml-[200px] xl:ml-[1000px]">
@@ -205,40 +159,53 @@ export const Header = ({ page, id }: { page: string; id: string }) => {
           </Button>
         )}
 
-        <Button variant="outline" size="icon" onClick={Toggle}>
+        <div className="">
+          <div className="">
+            {results.length > 0 && value.trim() && (
+              <div className="absolute top-full left-0  bg-white z-10 w-[335px]  max-h-[400px] overflow-auto border rounded-md shadow-lg ml-[30px] md:ml-[220px] lg:ml-[350px] xl:ml-[390px] xl:w-[577px] ">
+                {results.map((el, index) => (
+                  <div
+                    key={index}
+                    className="w-[331px] h-full flex flex-row   gap-6  border-2 border-black-500 rounded-lg xl:w-[577px] shadow-sm hover:opacity-[0.5] hover:bg-blue-600 focus:outline-2  "
+                    onClick={() => routerHandler(`/Details/${el.id}`)}>
+                    <div className="w-[67px] h-[100px] rounded-lg pl-2 pt-2">
+                      <img
+                        src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-7 ">
+                      <div>
+                        <h4 className="font-semibold text-[20px] text-[black]">
+                          {el.title}
+                        </h4>
+                        <div className="flex flex-row gap-1  pt-[6px] pl-[10px]">
+                          <Star className="text-[#FDE047]" />
+                          <p className="text-[16px] font-medium text-[black]">{`${el.vote_average}`}</p>
+                          <p className="text-[#71717A] text-[14px] font-semibold">
+                            /10
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-row gap-10 xl:gap-70">
+                        <p className="text-[16px] font-medium text-[black]">
+                          {el.release_date}
+                        </p>
+                        <Button variant="ghost" className="text-[black]">
+                          See More <ArrowRight />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <Button variant="outline" size="icon" onClick={toggleTheme}>
           {isDark ? <Sun /> : <Moon />}
         </Button>
-      </div>
-      <div>
-        {results.length > 0 && (
-          <div className="absolute bg-white z-50 w-full max-h-[400px] overflow-auto border rounded-md p-4">
-            {results.map((movie) => (
-              <div
-                key={movie.id}
-                className="flex items-center gap-4 py-2 border-b">
-                <img
-                  src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                  alt={movie.title}
-                  className="w-[50px] h-auto rounded"
-                />
-                <div>
-                  <h3 className="font-semibold">{movie.title}</h3>
-                  <p className="text-sm text-gray-500">
-                    {movie.overview.slice(0, 80)}...
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
 };
-
-{
-  /* <Button variant="outline" size="icon" style={{width:"97px", height:36}}>
-Genre 
-<ChevronRight />
-</Button> */
-}
