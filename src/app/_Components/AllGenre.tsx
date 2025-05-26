@@ -59,7 +59,8 @@ export const Allgenre = ({ id }: { id: string }) => {
             <div
               key={index}
               className="flex flex-col w-[157px] lg:w-[190px] xl:w-[229px] hover:opacity-[0.3]"
-              onClick={() => routerHandler(`/Details/${el.id}`)}>
+              onClick={() => routerHandler(`/Details/${el.id}`)}
+            >
               <img
                 src={`https://image.tmdb.org/t/p/original${el.poster_path}`}
                 alt={el.title}
@@ -88,3 +89,5 @@ export const Allgenre = ({ id }: { id: string }) => {
     </div>
   );
 };
+
+//

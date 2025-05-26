@@ -34,32 +34,3 @@ const Home = async ({ params }: Pageprops) => {
 };
 
 export default Home;
-
-// "use client";
-
-// import { Header } from "./_Components/Header";
-// import { MovieFrame } from "./_Components/MovieFrame";
-// import { AllCard } from "./_Components/AllCard";
-// import { FooterContent } from "./_Components/FooterContent";
-// import { AllSearch } from "./_Components/Search";
-// import { useState } from "react";
-
-// const Home = () => {
-//   const [searchValue, setSearchValue] = useState("");
-
-//   return (
-//     <div className="flex flex-col justify-center items-center gap-[10px]">
-//       <Header
-//         searchValue={searchValue}
-//         setSearchValue={setSearchValue}
-//         page="home"
-//       />
-//       <MovieFrame id="" />
-//       <AllCard />
-//       <AllSearch page="1" searchValue={searchValue} />
-//       <FooterContent />
-//     </div>
-//   );
-// };
-
-// export default Home;

@@ -8,7 +8,6 @@ export const FooterContent = () => {
       <div className="w-full  h-[228px] flex gap-[10px] flex-col justify-center  items-center  ">
         <div className="flex flex-col gap-3  w-[247px] text-[#FAFAFA]  lg: ">
           <h1 className="flex flex-row ">
-            {" "}
             <Film /> Movie Z
           </h1>
           <p className=" font-Inter text-sm ">
