@@ -57,7 +57,7 @@ export const Header = () => {
   const router = useRouter();
 
   const handleClick = () => setInput(true);
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
@@ -132,7 +132,8 @@ export const Header = () => {
                         <Link key={el.id} href={`/Genre/${el.id}`}>
                           <Badge
                             variant="outline"
-                            className="rounded-full h-[20px] hover:bg-gray-200 border">
+                            className="rounded-full h-[20px] hover:bg-gray-200 border"
+                          >
                             {el.name} <ChevronRight />
                           </Badge>
                         </Link>
@@ -145,7 +146,7 @@ export const Header = () => {
 
             <Input
               placeholder="Search..."
-              className="w-[157px] sm:w-[251px] lg:w-[379px]"
+              className="w-[157px] sm:w-[251px] lg:w-[379px] xl:w-[500px]"
               type="text"
               onChange={handleChange}
               value={value}
@@ -154,7 +155,8 @@ export const Header = () => {
         ) : (
           <Button
             onClick={handleClick}
-            className="pl-[300px] ml-[200px] xl:ml-[1000px]">
+            className="pl-[300px] ml-[200px] xl:ml-[1000px]"
+          >
             <Search />
           </Button>
         )}
@@ -162,12 +164,13 @@ export const Header = () => {
         <div className="">
           <div className="">
             {results.length > 0 && value.trim() && (
-              <div className="absolute top-full left-0  bg-white z-10 w-[335px]  max-h-[400px] overflow-auto border rounded-md shadow-lg ml-[30px] md:ml-[220px] lg:ml-[350px] xl:ml-[390px] xl:w-[577px] ">
+              <div className="absolute top-full left-0  bg-white z-10 w-[335px]  max-h-[400px] overflow-auto border rounded-md shadow-lg ml-[30px] md:ml-[220px] lg:ml-[350px] xl:ml-[390px] xl:w-[577px] 2xl:ml-[700px] ">
                 {results.map((el, index) => (
                   <div
                     key={index}
                     className="w-[331px] h-full flex flex-row   gap-6  border-2 border-black-500 rounded-lg xl:w-[577px] shadow-sm hover:opacity-[0.5] hover:bg-blue-600 focus:outline-2  "
-                    onClick={() => routerHandler(`/Details/${el.id}`)}>
+                    onClick={() => routerHandler(`/Details/${el.id}`)}
+                  >
                     <div className="w-[67px] h-[100px] rounded-lg pl-2 pt-2">
                       <img
                         src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
