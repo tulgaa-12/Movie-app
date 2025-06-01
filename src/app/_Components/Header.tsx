@@ -44,6 +44,9 @@ type Genre = {
   name: string;
   id: number;
 };
+type Movie = {
+  id: number;
+};
 const API_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkNjdkOGJlYmQwZjRmZjM0NWY2NTA1Yzk5ZTlkMDI4OSIsIm5iZiI6MTc0MjE3NTA4OS4zODksInN1YiI6IjY3ZDc3YjcxODVkMTM5MjFiNTAxNDE1ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.KxFMnZppBdHUSz_zB4p9A_gRD16I_R6OX1oiEe0LbE8";
 
@@ -55,7 +58,7 @@ export const Header = () => {
   const [genres, setGenres] = useState<Genre[]>([]);
   const isDark = theme === "dark";
   const router = useRouter();
-
+  const [movie, setMovie] = useState<Movie[]>([]);
   const handleClick = () => setInput(true);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -109,8 +112,11 @@ export const Header = () => {
     <div className="relative h-[59px] w-full flex justify-center items-center">
       <div className="h-[36px] w-full flex flex-row justify-around items-center">
         <div className="flex flex-row gap-[7px]">
-          <Film className="text-indigo-600" />
-          <p className="text-indigo-600">Movie Z</p>
+          <Link href={`/app/`}>
+            <Film className="text-indigo-600" />
+
+            <p className="text-indigo-600">Movie Z</p>
+          </Link>
         </div>
 
         {input ? (
@@ -132,8 +138,7 @@ export const Header = () => {
                         <Link key={el.id} href={`/Genre/${el.id}`}>
                           <Badge
                             variant="outline"
-                            className="rounded-full h-[20px] hover:bg-gray-200 border"
-                          >
+                            className="rounded-full h-[20px] hover:bg-gray-200 border">
                             {el.name} <ChevronRight />
                           </Badge>
                         </Link>
@@ -155,8 +160,7 @@ export const Header = () => {
         ) : (
           <Button
             onClick={handleClick}
-            className="pl-[300px] ml-[200px] xl:ml-[1000px]"
-          >
+            className="pl-[300px] ml-[200px] xl:ml-[1000px]">
             <Search />
           </Button>
         )}
@@ -168,9 +172,8 @@ export const Header = () => {
                 {results.map((el, index) => (
                   <div
                     key={index}
-                    className="w-[331px] h-full flex flex-row   gap-6  border-2 border-black-500 rounded-lg xl:w-[577px] shadow-sm hover:opacity-[0.5] hover:bg-blue-600 focus:outline-2  "
-                    onClick={() => routerHandler(`/Details/${el.id}`)}
-                  >
+                    className="w-[331px] h-full flex flex-row   gap-6  border-2 border-black-500 rounded-lg xl:w-[577px] shadow-sm hover:opacity-[0.5] hover:bg-gray-200 focus:outline-2  "
+                    onClick={() => routerHandler(`/Details/${el.id}`)}>
                     <div className="w-[67px] h-[100px] rounded-lg pl-2 pt-2">
                       <img
                         src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}

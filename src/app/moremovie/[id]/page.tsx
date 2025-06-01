@@ -1,9 +1,5 @@
 import { Header } from "@/app/_Components/Header";
 import axios from "axios";
-import { Selected } from "@/app/_Components/Selected";
-import { MovieDescription } from "@/app/_Components/MovieDescription";
-import { Crews } from "@/app/_Components/Crew";
-import { Moremovies } from "@/app/_Components/MoreMovies";
 import { FooterContent } from "@/app/_Components/FooterContent";
 import { MoreLikeMovies } from "@/app/_Components/MoreLikeMovies";
 
@@ -45,7 +41,6 @@ const Home = async ({ params }: Pageprops) => {
   return (
     <div id={id} className="flex flex-col gap-10 ">
       <Header />
-
       <MoreLikeMovies id={id} />
       <FooterContent />
     </div>

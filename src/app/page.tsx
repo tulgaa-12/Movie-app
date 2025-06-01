@@ -27,7 +27,7 @@ const Home = async ({ params }: Pageprops) => {
     <div className="flex flex-col justify-center items-center sm:flex flex-col justify-center items-center gap-[10px] ">
       <Header />
       <MovieFrame id="" />
-      <AllCard />
+      <AllCard id="" />
       <FooterContent />
     </div>
   );
