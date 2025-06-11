@@ -60,14 +60,13 @@ export const MoreLikeMovies = ({ id }: { id: string }) => {
             <div
               onClick={() => routerHandler(`/Details/${el.id}`)}
               key={index}
-              className="flex flex-col w-[157px] lg:w-[190px] xl:w-[229px] hover:opacity-[0.3]"
-            >
+              className="flex flex-col w-[157px] lg:w-[190px] xl:w-[229px] group cursor-pointer transition-transform duration-300 transform hover:scale-105 hover:shadow-xl  ">
               <img
                 src={`https://image.tmdb.org/t/p/original${el.poster_path}`}
                 alt={el.title}
-                className="w-[157px] rounded-t-lg h-[233px] xl:h-[340px] lg:w-[190px] xl:w-[229px]"
+                className="w-[157px] rounded-t-lg h-[233px] xl:h-[340px] lg:w-[190px] xl:w-[229px]  transition-transform duration-300 group-hover:scale-110"
               />
-              <div className=" h-[100px] bg-[#F4F4F5] flex flex-col justify-center gap-[8px] rounded-b-md lg:h-[95px] lg:text-lg ">
+              <div className=" h-[100px] bg-[#F4F4F5] flex flex-col justify-center gap-[8px] rounded-b-md lg:h-[95px] lg:text-lg  group-hover:bg-[#e4e4e7] transition-colors duration-300">
                 <div className="flex flex-row gap-1 pl-[10px] pt-[6px]">
                   <Star className="text-[#FDE047]" />
                   <p className="text-[16px] font-medium text-[black]">

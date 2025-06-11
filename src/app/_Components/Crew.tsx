@@ -85,7 +85,9 @@ export const Crews = ({ id }: { id: string }) => {
             </p>
             <div className="flex flex-wrap">
               {castList.map((el, index) => (
-                <p key={index}>{el.name}--</p>
+                <p className="flex gap-[10px]" key={index}>
+                  {el.name}--
+                </p>
               ))}
             </div>
           </div>

@@ -43,8 +43,7 @@ export const AlleCard = () => {
             <div
               key={index}
               onClick={() => routerHandler(`/Details/${el.id}`)}
-              className={`hover:opacity-[0.3]`}
-            >
+              className="group cursor-pointer transition-transform duration-300 transform hover:scale-105 hover:shadow-xl">
               <div className="relative w-full h-[233px] rounded-lg  xl:w-[229px] xl:h-[340px] 2xl:w-[229px] 2xl:h-[340px]">
                 <Image
                   src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
@@ -52,10 +51,10 @@ export const AlleCard = () => {
                   alt={""}
                   objectFit="cover"
                   priority
-                  className="rounded-t-lg "
+                  className="rounded-t-lg   transition-transform duration-300 group-hover:scale-110 "
                 />
               </div>
-              <div className="h-[76px] bg-[#F4F4F5] flex flex-col justify-center gap-[8px] rounded-b-lg lg:h-[95px] lg:text-lg ">
+              <div className="h-[76px] bg-[#F4F4F5] flex flex-col justify-center gap-[8px] rounded-b-lg lg:h-[95px] lg:text-lg group-hover:bg-[#e4e4e7] transition-colors duration-300 ">
                 <div className="flex flex-row gap-1 pl-[10px] pt-[6px]">
                   <Star className="text-[#FDE047]" />
                   <p className="text-[16px] font-medium text-[black]">{`${el.vote_average}`}</p>

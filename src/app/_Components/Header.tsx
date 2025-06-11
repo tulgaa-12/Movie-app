@@ -109,14 +109,13 @@ export const Header = () => {
   };
 
   return (
-    <div className="relative h-[59px] w-full flex justify-center items-center">
+    <div className="relative h-[59px] w-full flex justify-center items-center ">
       <div className="h-[36px] w-full flex flex-row justify-around items-center">
         <div className="flex flex-row gap-[7px]">
-          <Link href={`/app/`}>
+          <p className="text-indigo-600 flex flex-row  gap-[7px]">
             <Film className="text-indigo-600" />
-
-            <p className="text-indigo-600">Movie Z</p>
-          </Link>
+            Movie Z
+          </p>
         </div>
 
         {input ? (
@@ -125,7 +124,7 @@ export const Header = () => {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger></NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col h-[513px] w-[335px]">
+                  <NavigationMenuContent className="flex flex-col h-[513px] w-[335px]  p-4 rounded-lg shadow-md bg-white dark:bg-gray-800">
                     <div className="w-[213px] h-[60px] flex flex-col gap-[10px]">
                       <h1 className="font-semibold">Genres</h1>
                       <p>See lists of movies by genre</p>
@@ -160,7 +159,7 @@ export const Header = () => {
         ) : (
           <Button
             onClick={handleClick}
-            className="pl-[300px] ml-[200px] xl:ml-[1000px]">
+            className="pl-[300px] ml-[200px] xl:ml-[1000px] ">
             <Search />
           </Button>
         )}
@@ -172,11 +171,12 @@ export const Header = () => {
                 {results.map((el, index) => (
                   <div
                     key={index}
-                    className="w-[331px] h-full flex flex-row   gap-6  border-2 border-black-500 rounded-lg xl:w-[577px] shadow-sm hover:opacity-[0.5] hover:bg-gray-200 focus:outline-2  "
+                    className="w-[331px] h-full flex flex-row   gap-6  border-2 border-black-500 rounded-lg xl:w-[577px] shadow-sm  hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 "
                     onClick={() => routerHandler(`/Details/${el.id}`)}>
                     <div className="w-[67px] h-[100px] rounded-lg pl-2 pt-2">
                       <img
                         src={`https://image.tmdb.org/t/p/original/${el.poster_path}`}
+                        className="w-full h-full object-cover rounded-md"
                       />
                     </div>
                     <div className="flex flex-col gap-7 ">

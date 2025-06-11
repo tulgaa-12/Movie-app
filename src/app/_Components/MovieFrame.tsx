@@ -83,7 +83,7 @@ export const MovieFrame = ({ id }: { id: string }) => {
   );
   console.log(Upcoming);
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full ">
       <Carousel
         plugins={[plugin.current]}
         onMouseEnter={plugin.current.stop}
@@ -128,11 +128,11 @@ export const MovieFrame = ({ id }: { id: string }) => {
                 <div className="flex justify-between pl-[20px]">
                   <div className="flex flex-col">
                     <p className="text-sm font-normal">Now Playing:</p>
-                    <h3 className="text-[24px] font-semibold">{`${el.original_title}`}</h3>
+                    <h3 className="text-[24px] font-semibold text-xl drop-shadow-md">{`${el.original_title}`}</h3>
                   </div>
                   <div className="flex flex-row gap-1 pr-[20px] pt-[20px]">
                     <Star className="text-[#FDE047]" />
-                    <p className="text-[18px] font-semibold">{`${el.vote_average}`}</p>
+                    <p className="text-[18px] font-semibold ">{`${el.vote_average}`}</p>
                     <p className="text-[#71717A] text-[16px] font-normal">
                       /10
                     </p>
@@ -143,9 +143,9 @@ export const MovieFrame = ({ id }: { id: string }) => {
                 </div>
                 <div className="pl-[20px]">
                   <Button
-                    className="font-medium w-[145px] h-[40px] flex flex-row "
+                    className="font-medium w-[145px] h-[40px] flex flex-row mt-3 w-fit flex gap-2 transition-transform hover:scale-105 "
                     onClick={() => fetchTrailer(el.id)}>
-                    <Play />
+                    <Play className="group-hover:animate-pulse" />
                     Watch Trailer
                   </Button>
                 </div>
@@ -153,8 +153,8 @@ export const MovieFrame = ({ id }: { id: string }) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute ml-[80px] hidden md:hidden lg: lg:hidden" />
-        <CarouselNext className="absolute mr-[80px] hidden md:hidden  lg:hidden " />
+        <CarouselPrevious className="absolute ml-[80px] hidden md:hidden lg: lg:hidden  " />
+        <CarouselNext className="absolute mr-[80px] hidden md:hidden  lg:hidden   " />
       </Carousel>
     </div>
   );
