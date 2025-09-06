@@ -112,10 +112,12 @@ export const Header = () => {
     <div className="relative h-[59px] w-full flex justify-center items-center ">
       <div className="h-[36px] w-full flex flex-row justify-around items-center">
         <div className="flex flex-row gap-[7px]">
-          <p className="text-indigo-600 flex flex-row  gap-[7px]">
-            <Film className="text-indigo-600" />
-            Movie Z
-          </p>
+          <Link href={"/"}>
+            <p className="text-indigo-600 flex flex-row  gap-[7px]">
+              <Film className="text-indigo-600" />
+              Movie Z
+            </p>
+          </Link>
         </div>
 
         {input ? (

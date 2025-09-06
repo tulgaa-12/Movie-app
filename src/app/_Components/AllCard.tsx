@@ -1,11 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChartColumnIncreasing } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { AlleCard } from "./AlleCard";
-import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Preahvihear } from "next/font/google";
 import { Popular } from "./Popular";
 import { TopRated } from "./TopRated";
 import { useRouter } from "next/navigation";
@@ -22,10 +20,6 @@ type LikeMovie = {
   original_title: string;
   genre_ids: number[];
   poster_path: string;
-};
-
-type like = {
-  id: string;
 };
 
 const API_TOKEN =
@@ -49,7 +43,7 @@ export const AllCard = ({ id }: { id: string }) => {
           }
         );
         console.log(movie.data.results, "qwerttyyyu");
-        setComing(movie.data.results.splice(0, 1));
+        setComing(movie.data.results.splice(0));
       } catch (error) {
         console.error("aldaa", error);
       }
